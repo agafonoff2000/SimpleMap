@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="SimpleMapDb" targetNamespace="http://tempuri.org/SimpleMapDb.xsd" xmlns:mstns="http://tempuri.org/SimpleMapDb.xsd" xmlns="http://tempuri.org/SimpleMapDb.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="FileAdapter" GeneratorFunctionsComponentClassName="FileAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" UserFunctionsComponentName="FileAdapter" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="programConnectionString" IsAppSettingsProperty="true" Modifier="Assembly" Name="programConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.ProgramMain.Properties.Settings.GlobalReference.Default.programConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="SimpleMapDb" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msdata:EnforceConstraints="False" msprop:EnableTableAdapterManager="False" msprop:Generator_DataSetName="SimpleMapDb" msprop:Generator_UserDSName="SimpleMapDb">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Vertexes" msprop:Generator_TableClassName="VertexesDataTable" msprop:Generator_TableVarName="tableVertexes" msprop:Generator_RowChangedName="VertexesRowChanged" msprop:Generator_TablePropName="Vertexes" msprop:Generator_RowDeletingName="VertexesRowDeleting" msprop:Generator_RowChangingName="VertexesRowChanging" msprop:Generator_RowEvHandlerName="VertexesRowChangeEventHandler" msprop:Generator_RowDeletedName="VertexesRowDeleted" msprop:Generator_RowClassName="VertexesRow" msprop:Generator_UserTableName="Vertexes" msprop:Generator_RowEvArgName="VertexesRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:int" />
+              <xs:element name="Caption" msprop:Generator_ColumnVarNameInTable="columnCaption" msprop:Generator_ColumnPropNameInRow="Caption" msprop:Generator_ColumnPropNameInTable="CaptionColumn" msprop:Generator_UserColumnName="Caption" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Longitude" msprop:Generator_ColumnVarNameInTable="columnLongitude" msprop:Generator_ColumnPropNameInRow="Longitude" msprop:Generator_ColumnPropNameInTable="LongitudeColumn" msprop:Generator_UserColumnName="Longitude" type="xs:decimal" />
+              <xs:element name="Latitude" msprop:Generator_ColumnVarNameInTable="columnLatitude" msprop:Generator_ColumnPropNameInRow="Latitude" msprop:Generator_ColumnPropNameInTable="LatitudeColumn" msprop:Generator_UserColumnName="Latitude" type="xs:decimal" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Cables" msprop:Generator_TableClassName="CablesDataTable" msprop:Generator_TableVarName="tableCables" msprop:Generator_RowChangedName="CablesRowChanged" msprop:Generator_TablePropName="Cables" msprop:Generator_RowDeletingName="CablesRowDeleting" msprop:Generator_RowChangingName="CablesRowChanging" msprop:Generator_RowEvHandlerName="CablesRowChangeEventHandler" msprop:Generator_RowDeletedName="CablesRowDeleted" msprop:Generator_RowClassName="CablesRow" msprop:Generator_UserTableName="Cables" msprop:Generator_RowEvArgName="CablesRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:int" />
+              <xs:element name="Caption" msprop:Generator_ColumnVarNameInTable="columnCaption" msprop:Generator_ColumnPropNameInRow="Caption" msprop:Generator_ColumnPropNameInTable="CaptionColumn" msprop:Generator_UserColumnName="Caption" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Longitude1" msprop:Generator_ColumnVarNameInTable="columnLongitude1" msprop:Generator_ColumnPropNameInRow="Longitude1" msprop:Generator_ColumnPropNameInTable="Longitude1Column" msprop:Generator_UserColumnName="Longitude1" type="xs:decimal" />
+              <xs:element name="Latitude1" msprop:Generator_ColumnVarNameInTable="columnLatitude1" msprop:Generator_ColumnPropNameInRow="Latitude1" msprop:Generator_ColumnPropNameInTable="Latitude1Column" msprop:Generator_UserColumnName="Latitude1" type="xs:decimal" />
+              <xs:element name="Longitude2" msprop:Generator_ColumnVarNameInTable="columnLongitude2" msprop:Generator_ColumnPropNameInRow="Longitude2" msprop:Generator_ColumnPropNameInTable="Longitude2Column" msprop:Generator_UserColumnName="Longitude2" type="xs:decimal" />
+              <xs:element name="Latitude2" msprop:Generator_ColumnVarNameInTable="columnLatitude2" msprop:Generator_ColumnPropNameInRow="Latitude2" msprop:Generator_ColumnPropNameInTable="Latitude2Column" msprop:Generator_UserColumnName="Latitude2" type="xs:decimal" />
+              <xs:element name="Length" msprop:Generator_ColumnVarNameInTable="columnLength" msprop:Generator_ColumnPropNameInRow="Length" msprop:Generator_ColumnPropNameInTable="LengthColumn" msprop:Generator_UserColumnName="Length" type="xs:decimal" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Buildings" msprop:Generator_TableClassName="BuildingsDataTable" msprop:Generator_TableVarName="tableBuildings" msprop:Generator_TablePropName="Buildings" msprop:Generator_RowDeletingName="BuildingsRowDeleting" msprop:Generator_RowChangingName="BuildingsRowChanging" msprop:Generator_RowEvHandlerName="BuildingsRowChangeEventHandler" msprop:Generator_RowDeletedName="BuildingsRowDeleted" msprop:Generator_UserTableName="Buildings" msprop:Generator_RowChangedName="BuildingsRowChanged" msprop:Generator_RowEvArgName="BuildingsRowChangeEvent" msprop:Generator_RowClassName="BuildingsRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:int" />
+              <xs:element name="Caption" msprop:Generator_ColumnVarNameInTable="columnCaption" msprop:Generator_ColumnPropNameInRow="Caption" msprop:Generator_ColumnPropNameInTable="CaptionColumn" msprop:Generator_UserColumnName="Caption" type="xs:string" minOccurs="0" />
+              <xs:element name="Longitude1" msprop:Generator_ColumnVarNameInTable="columnLongitude1" msprop:Generator_ColumnPropNameInRow="Longitude1" msprop:Generator_ColumnPropNameInTable="Longitude1Column" msprop:Generator_UserColumnName="Longitude1" type="xs:decimal" />
+              <xs:element name="Latitude1" msprop:Generator_ColumnVarNameInTable="columnLatitude1" msprop:Generator_ColumnPropNameInRow="Latitude1" msprop:Generator_ColumnPropNameInTable="Latitude1Column" msprop:Generator_UserColumnName="Latitude1" type="xs:decimal" />
+              <xs:element name="Longitude2" msprop:Generator_ColumnVarNameInTable="columnLongitude2" msprop:Generator_ColumnPropNameInRow="Longitude2" msprop:Generator_ColumnPropNameInTable="Longitude2Column" msprop:Generator_UserColumnName="Longitude2" type="xs:decimal" />
+              <xs:element name="Latitude2" msprop:Generator_ColumnVarNameInTable="columnLatitude2" msprop:Generator_ColumnPropNameInRow="Latitude2" msprop:Generator_ColumnPropNameInTable="Latitude2Column" msprop:Generator_UserColumnName="Latitude2" type="xs:decimal" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Vertexes" />
+      <xs:field xpath="mstns:ID" />
+    </xs:unique>
+    <xs:unique name="Cables_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Cables" />
+      <xs:field xpath="mstns:ID" />
+    </xs:unique>
+    <xs:unique name="Buildings_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Buildings" />
+      <xs:field xpath="mstns:ID" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

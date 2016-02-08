@@ -1,0 +1,287 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FE54D43D-1518-478D-94C1-42656E024E1D}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ProgramMain</RootNamespace>
+    <AssemblyName>SimpleMap</AssemblyName>
+    <ApplicationIcon>default.ico</ApplicationIcon>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <ManifestCertificateThumbprint>12493B79065C087A471DCF83552E47E6251C9E32</ManifestCertificateThumbprint>
+    <ManifestKeyFile>SimpleMap_TemporaryKey.pfx</ManifestKeyFile>
+    <GenerateManifests>true</GenerateManifests>
+    <SignManifests>false</SignManifests>
+    <SignAssembly>false</SignAssembly>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+    <TargetZone>LocalIntranet</TargetZone>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <PublishUrl>Publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>true</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <InstallUrl>http://install.simplemap.ru/</InstallUrl>
+    <UpdateUrl>http://install.simplemap.ru/</UpdateUrl>
+    <TargetCulture>ru</TargetCulture>
+    <ProductName>Simple Map</ProductName>
+    <PublisherName>Simple Map Samples</PublisherName>
+    <MinimumRequiredVersion>1.3.8.5</MinimumRequiredVersion>
+    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
+    <ApplicationRevision>5</ApplicationRevision>
+    <ApplicationVersion>1.3.8.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Accessibility" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ExampleDb\SimpleMapDb.cs">
+      <DependentUpon>SimpleMapDb.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ExampleDb\SimpleMapDb.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SimpleMapDb.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ExampleForms\Controls\ButtonPanelCtl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ExampleForms\Controls\ButtonPanelCtl.Designer.cs">
+      <DependentUpon>ButtonPanelCtl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExampleForms\Controls\MapCtl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ExampleForms\Controls\MapCtl.designer.cs">
+      <DependentUpon>MapCtl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExampleForms\FrmMapDownloader.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExampleForms\FrmMapDownloader.Designer.cs">
+      <DependentUpon>FrmMapDownloader.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExampleForms\Miscellaneous.cs" />
+    <Compile Include="Framework\GraphicLayer.cs" />
+    <Compile Include="Framework\WorkerEventPriorityTypeConverter.cs" />
+    <Compile Include="Framework\WorkerMessageThread.cs" />
+    <Compile Include="Layers\MapObjects\BuildingTree.cs" />
+    <Compile Include="Layers\MapObjects\CableTree.cs" />
+    <Compile Include="Layers\MapObjects\TreeNodes\BuildingNode.cs" />
+    <Compile Include="Layers\MapObjects\TreeNodes\CableNode.cs" />
+    <Compile Include="Layers\MapObjects\TreeNodes\VertexNode.cs" />
+    <Compile Include="Layers\MapObjects\VertexTree.cs" />
+    <Compile Include="Map\CoordinatePoligon.cs" />
+    <Compile Include="Map\EarthUtilities.cs" />
+    <Compile Include="Map\CoordinateRectangle.cs" />
+    <Compile Include="Map\Google\GoogleBlock.cs" />
+    <Compile Include="Map\Google\GoogleCoordinate.cs" />
+    <Compile Include="Map\Google\GoogleMapUtilities.cs" />
+    <Compile Include="Map\Google\GoogleRectangle.cs" />
+    <Compile Include="Map\Indexer\CoordinateIndexer.cs" />
+    <Compile Include="Map\Coordinate.cs" />
+    <Compile Include="Layers\MapLayer.cs" />
+    <Compile Include="Layers\NetLayer.cs" />
+    <Compile Include="Map\Spatial\Indexer\SpatialContentIndexer.cs" />
+    <Compile Include="Map\Spatial\Indexer\SpatialLevelPowerIndexer.cs" />
+    <Compile Include="Map\Spatial\Indexer\SpatialSheetIndexer.cs" />
+    <Compile Include="Map\Spatial\SpatialSheet.cs" />
+    <Compile Include="Map\Spatial\SpatialQueryIterator.cs" />
+    <Compile Include="Map\Spatial\SpatialTree.cs" />
+    <Compile Include="Map\Spatial\SpatialSheetBase.cs" />
+    <Compile Include="ExampleForms\FrmOpticMap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExampleForms\FrmOpticMap.designer.cs">
+      <DependentUpon>FrmOpticMap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Map\Spatial\Types\SpatialSheetPowerTypes.cs" />
+    <Compile Include="Map\Spatial\Types\SpatialTreeNode.cs" />
+    <Compile Include="Map\Spatial\Types\SpatialTreeNodeTypes.cs" />
+    <Compile Include="Map\Types\InterseptResult.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.cs" />
+    <EmbeddedResource Include="ExampleDb\SimpleMapDb.resx">
+      <DependentUpon>SimpleMapDb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExampleForms\Controls\ButtonPanelCtl.resx">
+      <DependentUpon>ButtonPanelCtl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExampleForms\Controls\MapCtl.resx">
+      <DependentUpon>MapCtl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExampleForms\FrmMapDownloader.resx">
+      <DependentUpon>FrmMapDownloader.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExampleForms\FrmOpticMap.resx">
+      <DependentUpon>FrmOpticMap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ExampleDb\SimpleMapDb.xsc">
+      <DependentUpon>SimpleMapDb.xsd</DependentUpon>
+    </None>
+    <None Include="ExampleDb\SimpleMapDb.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SimpleMapDb.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ExampleDb\SimpleMapDb.xss">
+      <DependentUpon>SimpleMapDb.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="default.ico" />
+    <None Include="Resources\print_24.png" />
+    <None Include="Resources\save 2_16x16.png" />
+    <None Include="Resources\centermap_24.png" />
+    <None Include="Resources\vertex_8.png" />
+    <None Include="Resources\vertex_24.png" />
+    <None Include="Resources\vertex_16.png" />
+    <None Include="Properties\app.manifest" />
+    <None Include="Resources\program_24.png" />
+    <None Include="Resources\refresh_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Установщик Windows 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="default.ico">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
