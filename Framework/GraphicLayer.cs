@@ -78,19 +78,15 @@ namespace ProgramMain.Framework
             Width = pWidth;
             Height = pHeight;
 
-            _centerCoordinate = centerCoordinate;  // Географическая широта, Географическая долгота, Масштаб (Zoom) GoogleMap-а
+            _centerCoordinate = centerCoordinate;
             _level = pLevel;
 
             PiFormat = piFormat;
 
             Resize(false);
-            //событие на отрисовку слоя
             _drawLayerEvent += OnIvalidateLayer;
         }
 
-        /// <summary>
-        /// Параметры события, срабатывает на изменение отрисовки слоя
-        /// </summary>
         public class InvalidateLayerEventArgs : OwnerEventArgs
         {
             public InvalidateLayerEventArgs()
@@ -232,10 +228,7 @@ namespace ProgramMain.Framework
 
         virtual protected void TranslateCoords()
         {
-            //определяем видимую область в целочисленных координатах гугла
-            //относительно заданной центральной точки
             _screenView = _centerCoordinate.GetScreenViewFromCenter(Width, Height, _level);
-            //определяем видимую область в широте и долготе
             _coordinateView = ScreenView;
         }
 

@@ -7,10 +7,10 @@ namespace ProgramMain.Map.Spatial
 {
     public class SpatialTree<TNode> where TNode : ISpatialTreeNode
     {
-        //ссылка на главный уровень в индексе
-        //по умолчанию индекс содержит 4 уровня, не включая главного, но при желании может быть увеличен
+        //Spatial index depth count, can be > 4
         internal readonly int SpatialDepth = 4;
-        
+
+        //Root spatial index sheet includes all daughter indexed sheets
         private SpatialSheet<TNode> _root;
         public int NodeCount { get; private set; }
         public readonly SpatialLevelPowerIndexer<TNode> Power;
@@ -50,10 +50,10 @@ namespace ProgramMain.Map.Spatial
             {
                 Power[i] = SpatialSheetPowerTypes.Low;
             }
-            //rootLevel включает в себя все элементы дерева, поэтому координаты границы не задаются
+            //Root spatial index sheet includes whole world
             _root = new SpatialSheet<TNode>(this, 1, 1, CoordinateRectangle.Empty);
 
-            //нужен для тюнинга индекса, содержит количество ветвей индекса на каждом уровне
+            //Array to grab index stats for tuning
             NodeDimension = new int[Power.Length - 1];
         }
 
@@ -112,7 +112,6 @@ namespace ProgramMain.Map.Spatial
             NodeCount = 0;
             _root.Clear();
             
-            //нужен для тюнинга индекса, содержит количество ветвей индекса на каждом уровне
             NodeDimension = new int[Power.Length - 1];
         }
     }

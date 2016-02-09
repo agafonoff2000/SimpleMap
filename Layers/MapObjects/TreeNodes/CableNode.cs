@@ -2,7 +2,6 @@ using System;
 using System.Data;
 using ProgramMain.ExampleDb;
 using ProgramMain.Map;
-using ProgramMain.Map.Spatial;
 using ProgramMain.Map.Spatial.Types;
 
 namespace ProgramMain.Layers.MapObjects.TreeNodes

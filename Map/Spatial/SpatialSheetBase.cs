@@ -9,10 +9,10 @@ namespace ProgramMain.Map.Spatial
         public int Level { get; private set; }
         public int GoogleLevel { get; private set; }
 
-        //массив для хранения дочерних уровней в индекса
+        //Daughter index sheets
         public readonly SpatialSheetIndexer<TNode> Sheets;
 
-        //массив для храрения элементов (поддерживаются точки, линии и прямоугольники)
+        //Content array of index elemets on bottom index sheets
         public readonly SpatialContentIndexer<TNode> Content;
 
         public bool IsEmpty

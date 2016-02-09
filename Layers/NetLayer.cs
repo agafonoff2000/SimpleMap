@@ -90,14 +90,14 @@ namespace ProgramMain.Layers
         {
             base.TranslateCoords();
 
-            // Определяем погрешность для попадания в объекты
+            //Fault distance on mouse click to detect click on objects 
             CoordinateTolerance = CenterCoordinate.Distance(
                 CenterCoordinate + new GoogleCoordinate(HalfVertexSize.Width, 0/*HalfVertexSize.Height*/, Level));
         }
 
         protected override bool DispatchThreadEvents(WorkerEvent workerEvent)
         {
-            bool res = base.DispatchThreadEvents(workerEvent);
+            var res = base.DispatchThreadEvents(workerEvent);
 
             if (!res && workerEvent is NetWorkerEvent)
             {
@@ -125,7 +125,7 @@ namespace ProgramMain.Layers
             {
                 SwapDrawBuffer();
 
-                //рисовать все объекты на карте независимо от ClipRectangle, т.к. FillTransparent!
+                //!!!Draw all objects after FillTransparent (*ClipRectangle)
                 FillTransparent();
 
                 var localScreenView = (GoogleRectangle)ScreenView.Clone();

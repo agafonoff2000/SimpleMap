@@ -5,9 +5,9 @@ namespace ProgramMain.Map.Google
 {
     internal class GoogleMapUtilities
     {
-        #region Вспомогательные функциии для преобразование географических координат в координаты GoggleMaps
+        #region Helpers to work with Google Coordinate system
         /// <summary>
-        /// Определяем количество блоков вдоль одной стороны битмапа уровня level
+        /// Block count on the side of google level
         /// </summary>
         /// <param name="level"></param>
         /// <returns></returns>
@@ -17,18 +17,18 @@ namespace ProgramMain.Map.Google
         }
 
         /// <summary>
-        /// Определяем количество блоков битмапа уровня level
+        /// Block count on the google level
         /// </summary>
         /// <param name="level"></param>
         /// <returns></returns>
         public static long CountTiles(int level)
         {
-            long numTiles = NumTiles(level);
+            var numTiles = NumTiles(level);
             return numTiles * numTiles;
         }
 
         /// <summary>
-        /// Определяем уровнень битмапа по колличеству блоков в level
+        /// Translate block count to google level
         /// </summary>
         /// <param name="countTiles"></param>
         /// <returns></returns>
@@ -38,7 +38,7 @@ namespace ProgramMain.Map.Google
         }
 
         /// <summary>
-        /// Определяем размер в пикселях одной стороны битмапа уровня level
+        /// Pixel count on the side of google level bitmap
         /// </summary>
         /// <param name="level"></param>
         /// <returns></returns>
@@ -48,7 +48,7 @@ namespace ProgramMain.Map.Google
         }
 
         /// <summary>
-        /// Определяем координаты в пикселах середины Битмапа уровня level 
+        /// Pixel count on the google level bitmap 
         /// </summary>
         /// <param name="level"></param>
         /// <returns></returns>
@@ -58,65 +58,65 @@ namespace ProgramMain.Map.Google
         }
 
         /// <summary>
-        /// Определяем количество пикселей, приходящееся на один градус долготы на Битмапе уровня level
+        /// Pixel count per degree on the google level bitmap
         /// </summary>
         /// <param name="level"></param>
         /// <returns></returns>
-        public static double PixelsPerLonDegree(int level)
+        public static double PixelsPerDegree(int level)
         {
             return (double)BitMapSize(level) / 360;
         }
 
         /// <summary>
-        /// Определяем количество пикселей, приходящееся на один радиан долготы на Битмапе уровня level
+        /// Pixel count per radian on the google level bitmap
         /// </summary>
         /// <param name="level"></param>
         /// <returns></returns>
-        public static double PixelsPerLonRadian(int level)
+        public static double PixelsPerRadian(int level)
         {
             const double p2 = 2 * Math.PI;
             return BitMapSize(level) / p2;
         }
 
         /// <summary>
-        /// Преобразование географической долготы в координату X Googl-a
+        /// Translate longitude to X coordinate of the google level bitmap
         /// </summary>
         public static long GetGoogleX(Coordinate coordinate, int level)
         {
-            return (long)(Math.Floor(BitmapOrigo(level) + coordinate.Longitude * PixelsPerLonDegree(level)));
+            return (long)(Math.Floor(BitmapOrigo(level) + coordinate.Longitude * PixelsPerDegree(level)));
         }
 
         /// <summary>
-        /// Преобразование географической широты в координату Y Googl-a
+        /// Translate latitude to Y coordinate of the google level bitmap
         /// </summary>
         public static long GetGoogleY(Coordinate coordinate, int level)
         {
-            const double d2R = Math.PI / 180; // Константа для преобразования градусов в радианы
+            const double d2R = Math.PI / 180;
             var z = (1 + Math.Sin(coordinate.Latitude * d2R)) / (1 - Math.Sin(coordinate.Latitude * d2R));
-            return (long)(Math.Floor(BitmapOrigo(level) - 0.5 * Math.Log(z) * PixelsPerLonRadian(level)));
+            return (long)(Math.Floor(BitmapOrigo(level) - 0.5 * Math.Log(z) * PixelsPerRadian(level)));
         }
 
         /// <summary>
-        /// Преобразование координаты X Googl-a в географическую долготу
+        /// Translate X coordinate of the google level bitmap to longitude
         /// </summary>
         public static double GetLongitude(GoogleCoordinate google)
         {
-            return Math.Round((google.X - BitmapOrigo(google.Level)) / PixelsPerLonDegree(google.Level), 5);
+            return Math.Round((google.X - BitmapOrigo(google.Level)) / PixelsPerDegree(google.Level), 5);
         }
 
         /// <summary>
-        /// Преобразование координаты Y Googl-a в географическую широту
+        /// Translate Y coordinate of the google level bitmap to latitude
         /// </summary>
         public static double GetLatitude(GoogleCoordinate google)
         {
-            const double r2D = 180 / Math.PI; // Константа для преобразования радиан в градусы 
+            const double r2D = 180 / Math.PI; 
             const double p2 = Math.PI / 2;
-            var z = (google.Y - BitmapOrigo(google.Level)) / (-1 * PixelsPerLonRadian(google.Level));
+            var z = (google.Y - BitmapOrigo(google.Level)) / (-1 * PixelsPerRadian(google.Level));
             return Math.Round((2 * Math.Atan(Math.Exp(z)) - p2) * r2D, 5);
         }
 
         /// <summary>
-        /// Номер блока для координаты X Googl-a по широте
+        /// Get google bitmap block number X by longitude
         /// </summary>
         public static long GetNumBlockX(Coordinate coordinate, int level)
         {
@@ -124,7 +124,7 @@ namespace ProgramMain.Map.Google
         }
 
         /// <summary>
-        /// Номер блока для координаты Y Googl-a по долготе
+        /// Get google bitmap block number Y by latitude
         /// </summary>
         public static long GetNumBlockY(Coordinate coordinate, int level)
         {
@@ -133,7 +133,7 @@ namespace ProgramMain.Map.Google
         #endregion
 
         /// <summary>
-        /// Пересечение отрезков c заданными координатами
+        /// Line cross
         /// </summary>
         public static bool CheckLinesInterseption(CoordinateRectangle line1, CoordinateRectangle line2)
         {
@@ -152,14 +152,12 @@ namespace ProgramMain.Map.Google
         }
 
         /// <summary>
-        /// Центральная точка на отрезке
-        /// Передаваемые широта/долгота в градусах и сотых долях
+        /// Line middle point
         /// </summary>
         public static Coordinate GetMiddlePoint(Coordinate c1, Coordinate c2)
         {
-            // Константы, используемые для вычисления смещения и расстояния
-            const double d2R = Math.PI / 180; // Константа для преобразования градусов в радианы
-            const double r2D = 180 / Math.PI; // Константа для преобразования радиан в градусы 
+            const double d2R = Math.PI / 180;
+            const double r2D = 180 / Math.PI; 
 
             var dLon = d2R * (c2.Longitude - c1.Longitude);
             var c1Rlat = d2R * (c1.Latitude);
@@ -174,7 +172,7 @@ namespace ProgramMain.Map.Google
         }
 
         /// <summary>
-        /// Создать URL для запроса картинки у Googl-a c заданными координатами
+        /// Create Url to get bitmap block from google bitmap cache
         /// </summary>
         public static string CreateUrl(GoogleBlock block)
         {
@@ -182,13 +180,13 @@ namespace ProgramMain.Map.Google
         }
 
         /// <summary>
-        /// Создать запрос картинки у Googl-a c заданными координатами
+        /// Create web request to get bitmap block from google bitmap cache
         /// </summary>
         public static HttpWebRequest CreateGoogleWebRequest(GoogleBlock block)
         {
             var urlGoogle = CreateUrl(block);
             var oRequest = (HttpWebRequest)WebRequest.Create(urlGoogle);
-            oRequest.UserAgent = "www.simplemap.ru"; //Это обязательно, иначе Google не вернет картинку!
+            oRequest.UserAgent = "www.simplemap.ru"; //!!!must have to retrieve image from google
             return oRequest;
         }
     }

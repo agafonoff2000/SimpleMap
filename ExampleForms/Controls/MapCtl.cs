@@ -286,12 +286,12 @@ namespace ProgramMain.ExampleForms.Controls
                     if (vertexRows.Length > 0)
                     {
                         var vertex = _netLayer.GetVertex(vertexRows[0].Value);
-                        if (vertex != null) MessageBox.Show(vertex.Caption, "Vertex found!");
+                        if (vertex != null) MessageBox.Show(vertex.Caption, @"Vertex found!");
                     }
                     else if (cableRows.Length > 0)
                     {
                         var cable = _netLayer.GetCable(cableRows[0].Value);
-                        if (cable != null) MessageBox.Show(cable.Caption, "Cable found!");
+                        if (cable != null) MessageBox.Show(cable.Caption, @"Cable found!");
                     }
                 }
             }
@@ -316,14 +316,14 @@ namespace ProgramMain.ExampleForms.Controls
                     {
                         _menuObjectId = vertexRows[0].Value;
                         var c = new ContextMenu();
-                        c.MenuItems.Add("Delete Vertex", MapCtl_DeleteVertexClick);
+                        c.MenuItems.Add(@"Delete Vertex", MapCtl_DeleteVertexClick);
                         c.Show(this, e.Location);
                     }
                     else if (cableRows.Length > 0)
                     {
                         _menuObjectId = cableRows[0].Value;
                         var c = new ContextMenu();
-                        c.MenuItems.Add("Delete Cable", MapCtl_DeleteCableClick);
+                        c.MenuItems.Add(@"Delete Cable", MapCtl_DeleteCableClick);
                         c.Show(this, e.Location);
                     }
                 }

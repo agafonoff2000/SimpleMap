@@ -66,7 +66,6 @@ namespace ProgramMain.Layers
         {
             base.TranslateCoords();
 
-            // Определяем видимый блок битмапа по оси X Y
             _blockView = ScreenView.BlockView;
         }
         
@@ -129,7 +128,7 @@ namespace ProgramMain.Layers
 
         private static bool PointContains(Point pt, Rectangle rect)
         {
-            //!!!стандартная функция не работает на граничных условиях
+            //!!!standard function doesnt work on borders
             return pt.X >= rect.Left && pt.X <= rect.Right
                 && pt.Y >= rect.Top && pt.Y <= rect.Bottom;
         }

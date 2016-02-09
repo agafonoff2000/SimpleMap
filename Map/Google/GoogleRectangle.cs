@@ -122,7 +122,9 @@ namespace ProgramMain.Map.Google
             return new CoordinateRectangle(google.LeftTop, google.RightBottom);
         }
 
-        //Стартовый и конечный(видимый) блок битмапа по оси X Y
+        /// <summary>
+        /// Google bitmap block count for (X, Y)
+        /// </summary>
         public Rectangle BlockView
         {
             get

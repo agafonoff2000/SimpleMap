@@ -19,7 +19,7 @@ namespace ProgramMain.Map.Spatial
 
         internal void SheetAction(TNode node, SheetActionType actionType)
         {
-            //вставка элемента в индекс, или его удаление из индекса
+            //Insert node to spatial index or remove node from spatial index
             if (!IsBottomSheet)
             {
                 switch (node.NodeType)
@@ -40,7 +40,7 @@ namespace ProgramMain.Map.Spatial
             }
             else
             {
-                //если дошли до нижнего уровня, то добавить/удалить элемент
+                //Just do it on bottom level
                 lock (this)
                 {
                     switch (actionType)
@@ -61,7 +61,7 @@ namespace ProgramMain.Map.Spatial
             var block = node.Coordinate.GetGoogleBlock(NextGoogleLevel);
             lock (this)
             {
-                //поиск для точки дочернего элемента в индексе
+                //point search in daughter sheet 
                 var sheet = Sheets[block];
                 
                 sheet.SheetAction(node, actionType);
@@ -80,7 +80,7 @@ namespace ProgramMain.Map.Spatial
             var deltaX = (rect.Left <= rect.Right) ? 1 : -1;
             var deltaY = (rect.Top <= rect.Bottom) ? 1 : -1;
 
-            //поиск для линии дочерних элементов в индексе(линия может входить в несколько элементов индекса)
+            //line search in daughter sheet 
             for (var x = rect.Left; (deltaX == 1 && x <= rect.Right) || (deltaX == -1 && x >= rect.Right); x += deltaX)
             {
                 for (var y = rect.Top; (deltaY == 1 && y <= rect.Bottom) || (deltaY == -1 && y >= rect.Bottom); y += deltaY)
@@ -88,7 +88,6 @@ namespace ProgramMain.Map.Spatial
                     var block = new GoogleBlock(x, y, blockViewLevel);
                     var googleRect = (GoogleRectangle)block;
                     
-                    //проверка вхождения линии в каждый из потенциальных дочерних элементов индекса
                     if (googleRect.LineContains(line) != InterseptResult.None)
                     {
                         lock (this)
@@ -113,7 +112,7 @@ namespace ProgramMain.Map.Spatial
             var deltaX = (rect.Left <= rect.Right) ? 1 : -1;
             var deltaY = (rect.Top <= rect.Bottom) ? 1 : -1;
 
-            //поиск для прямоугольника дочерних элементов в индексе(прямоугольник может входить в несколько элементов индекса)
+            //rectangle search in daughter sheet 
             for (var x = rect.Left; (deltaX == 1 && x <= rect.Right) || (deltaX == -1 && x >= rect.Right); x += deltaX)
             {
                 for (var y = rect.Top; (deltaY == 1 && y <= rect.Bottom) || (deltaY == -1 && y >= rect.Bottom); y += deltaY)
@@ -141,7 +140,7 @@ namespace ProgramMain.Map.Spatial
             var deltaX = (rect.Left <= rect.Right) ? 1 : -1;
             var deltaY = (rect.Top <= rect.Bottom) ? 1 : -1;
 
-            //поиск для линии дочерних элементов в индексе(линия может входить в несколько элементов индекса)
+            //poligon search in daughter sheet 
             for (var x = rect.Left; (deltaX == 1 && x <= rect.Right) || (deltaX == -1 && x >= rect.Right); x += deltaX)
             {
                 for (var y = rect.Top; (deltaY == 1 && y <= rect.Bottom) || (deltaY == -1 && y >= rect.Bottom); y += deltaY)
@@ -149,7 +148,6 @@ namespace ProgramMain.Map.Spatial
                     var block = new GoogleBlock(x, y, blockViewLevel);
                     var googleRect = (GoogleRectangle)block;
 
-                    //проверка вхождения линии в каждый из потенциальных дочерних элементов индекса
                     if (googleRect.PoligonContains(poligon) != InterseptResult.None)
                     {
                         lock (this)
@@ -171,7 +169,7 @@ namespace ProgramMain.Map.Spatial
             {
                 case SheetActionType.Delete:
                     {
-                        //при удалении объектов удалить текущюю ветку идекса, если она пустая
+                        //delete sheet from index without elements
                         if (sheet.IsEmpty)
                             Sheets.Remove(block);
                     } break;
@@ -180,7 +178,7 @@ namespace ProgramMain.Map.Spatial
 
         public void Query(HashSet<ISpatialTreeNode> hashSet, CoordinateRectangle rectangle, InterseptResult parentResult, SpatialQueryIterator i)
         {
-            //запрос на поиск элементов в индексе в заданном квадрате координат
+            //Query elements on the map by coordinate ractengle(indexed search)
             lock (this)
             {
                 if (!IsBottomSheet)
@@ -214,7 +212,6 @@ namespace ProgramMain.Map.Spatial
                         {
                             i.Next();
 
-                            //проверка на вхождение текущего элемента в индексе в заданном квадрате координат
                             switch (node.NodeType)
                             {
                                 case SpatialTreeNodeTypes.Point:
@@ -242,7 +239,7 @@ namespace ProgramMain.Map.Spatial
 
         public void Distance(HashSet<ISpatialTreeNode> hashSet, Coordinate coordinate, double variance, SpatialQueryIterator i)
         {
-            //запрос на поиск элементов в индексе удаленных на определенное растояние (в метрах) от заданной точки
+            //Query elements on the map close to coordinate (indexed search)
             lock (this)
             {
                 if (!IsBottomSheet)
@@ -266,7 +263,6 @@ namespace ProgramMain.Map.Spatial
                     {
                         i.Next();
 
-                        //расчет растояния для текущего элемента (в метрах) от заданной точки
                         double distance = -1;
                         switch (node.NodeType)
                         {
