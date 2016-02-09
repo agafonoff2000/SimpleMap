@@ -122,8 +122,11 @@
     </Compile>
     <Compile Include="ExampleForms\Miscellaneous.cs" />
     <Compile Include="Framework\GraphicLayer.cs" />
-    <Compile Include="Framework\WorkerEventPriorityTypeConverter.cs" />
-    <Compile Include="Framework\WorkerMessageThread.cs" />
+    <Compile Include="Framework\WorkerThread\Types\EventPriorityType.cs" />
+    <Compile Include="Framework\WorkerThread\Types\EventPriorityTypeConverter.cs" />
+    <Compile Include="Framework\WorkerThread\Types\WorkerEventType.cs" />
+    <Compile Include="Framework\WorkerThread\WorkerEvent.cs" />
+    <Compile Include="Framework\WorkerThread\WorkerMessageThread.cs" />
     <Compile Include="Layers\MapObjects\BuildingTree.cs" />
     <Compile Include="Layers\MapObjects\CableTree.cs" />
     <Compile Include="Layers\MapObjects\TreeNodes\BuildingNode.cs" />

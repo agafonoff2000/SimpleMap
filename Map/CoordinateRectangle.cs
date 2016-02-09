@@ -104,9 +104,9 @@ namespace ProgramMain.Map
             return (String.Format("E{0:F5} N{1:F5} - E{2:F5} N{3:F5} : {4:n}m", Left, Top, Right, Bottom, LineLength));
         }
 
-        public Rectangle GetScreenRect(GoogleRectangle googleScreenView)
+        public Rectangle GetScreenRect(GoogleRectangle screenView)
         {
-            return new GoogleRectangle(this, googleScreenView.Level).GetScreenRect(googleScreenView);
+            return new GoogleRectangle(this, screenView.Level).GetScreenRect(screenView);
         }
 
         public InterseptResult PointContains(Coordinate point)

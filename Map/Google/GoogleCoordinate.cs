@@ -83,13 +83,13 @@ namespace ProgramMain.Map.Google
                 google.Level);
         }
 
-        public Point GetScreenPoint(GoogleRectangle googleScreenView)
+        public Point GetScreenPoint(GoogleRectangle screenView)
         {
-            if (Level != googleScreenView.Level)
+            if (Level != screenView.Level)
             {
-                googleScreenView = new GoogleRectangle(new CoordinateRectangle(googleScreenView.LeftTop, googleScreenView.RightBottom), Level);
+                screenView = new GoogleRectangle(new CoordinateRectangle(screenView.LeftTop, screenView.RightBottom), Level);
             }
-            return new Point((int)(X - googleScreenView.Left), (int)(Y - googleScreenView.Top));
+            return new Point((int)(X - screenView.Left), (int)(Y - screenView.Top));
         }
     }
 }

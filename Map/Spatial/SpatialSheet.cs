@@ -75,7 +75,7 @@ namespace ProgramMain.Map.Spatial
             var blockViewLevel = NextGoogleLevel;
             
             var line = node.Rectangle;
-            var rect = new GoogleRectangle(line, blockViewLevel).GoogleBlockView;
+            var rect = new GoogleRectangle(line, blockViewLevel).BlockView;
 
             var deltaX = (rect.Left <= rect.Right) ? 1 : -1;
             var deltaY = (rect.Top <= rect.Bottom) ? 1 : -1;
@@ -108,7 +108,7 @@ namespace ProgramMain.Map.Spatial
         {
             var blockViewLevel = NextGoogleLevel;
 
-            var rect = new GoogleRectangle(node.Rectangle, blockViewLevel).GoogleBlockView;
+            var rect = new GoogleRectangle(node.Rectangle, blockViewLevel).BlockView;
 
             var deltaX = (rect.Left <= rect.Right) ? 1 : -1;
             var deltaY = (rect.Top <= rect.Bottom) ? 1 : -1;
@@ -136,7 +136,7 @@ namespace ProgramMain.Map.Spatial
             var blockViewLevel = NextGoogleLevel;
 
             var poligon = node.Poligon;
-            var rect = new GoogleRectangle(poligon, blockViewLevel).GoogleBlockView;
+            var rect = new GoogleRectangle(poligon, blockViewLevel).BlockView;
 
             var deltaX = (rect.Left <= rect.Right) ? 1 : -1;
             var deltaY = (rect.Top <= rect.Bottom) ? 1 : -1;

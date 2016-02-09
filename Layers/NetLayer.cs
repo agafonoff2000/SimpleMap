@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ProgramMain.ExampleDb;
 using ProgramMain.Framework;
+using ProgramMain.Framework.WorkerThread;
+using ProgramMain.Framework.WorkerThread.Types;
 using ProgramMain.Layers.MapObjects;
 using ProgramMain.Map;
 using ProgramMain.Map.Google;
@@ -126,7 +128,7 @@ namespace ProgramMain.Layers
                 //рисовать все объекты на карте независимо от ClipRectangle, т.к. FillTransparent!
                 FillTransparent();
 
-                var localScreenView = (GoogleRectangle)GoogleScreenView.Clone();
+                var localScreenView = (GoogleRectangle)ScreenView.Clone();
 
                 RedrawCables(localScreenView);
                 RedrawVertexes(localScreenView);

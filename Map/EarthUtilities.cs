@@ -75,12 +75,12 @@ namespace ProgramMain.Map
 
             const double r2D = 180 / Math.PI; // Константа для преобразования радиан в градусы 
 
-           var a = GetLength(line.LeftTop, line.RightBottom);
+            var a = GetLength(line.LeftTop, line.RightBottom);
+            if (a <= 0)
+                return pt;
 
             var b = GetLength(line.LeftTop, pt);
             var c = GetLength(line.RightBottom, pt);
-            if (a <= 0)
-                return pt;
 
             var enB = Math.Acos((Math.Pow(a, 2) + Math.Pow(b, 2) - Math.Pow(c, 2)) / (2 * a * b)) * r2D;
             if (enB >= 90)
@@ -90,10 +90,10 @@ namespace ProgramMain.Map
                 return pt;
 
 
-            var x = ((line.Right - line.Left)*(line.Bottom - line.Top)*(pt.Latitude - line.Top) +
-                        line.Left*Math.Pow(line.Bottom - line.Top, 2) + pt.Longitude*Math.Pow(line.Right - line.Left, 2))/
+            var x = ((line.Right - line.Left) * (line.Bottom - line.Top) * (pt.Latitude - line.Top) +
+                        line.Left * Math.Pow(line.Bottom - line.Top, 2) + pt.Longitude*Math.Pow(line.Right - line.Left, 2)) /
                        (Math.Pow(line.Bottom - line.Top, 2) + Math.Pow(line.Right - line.Left, 2));
-            var y =(line.Bottom - line.Top)*(x-line.Left)/(line.Right - line.Left)+line.Top;
+            var y = (line.Bottom - line.Top) * (x - line.Left) / (line.Right - line.Left) + line.Top;
 
             return new Coordinate(x,y);
         }

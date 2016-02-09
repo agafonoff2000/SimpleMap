@@ -11,7 +11,7 @@ namespace ProgramMain.ExampleForms
 
         public static string GetAssemblyTitle()
         {
-            var aTitle = "Simple Map";
+            var aTitle = @"Simple Map";
             var thisAssembly = Program.MainForm.GetType().Assembly;
             var attributes = thisAssembly.GetCustomAttributes(typeof(System.Reflection.AssemblyTitleAttribute), false);
             if (attributes.Length == 1)

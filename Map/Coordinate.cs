@@ -80,19 +80,19 @@ namespace ProgramMain.Map
                 level);
         }
 
-        public GoogleRectangle GoogleScreenViewFromCenter(int screenWidth, int screenHeight, int level)
+        public GoogleRectangle GetScreenViewFromCenter(int screenWidth, int screenHeight, int level)
         {
             return new GoogleRectangle(GetLeftTopGoogle(screenWidth, screenHeight, level), GetRightBottomGoogle(screenWidth, screenHeight, level));
         }
 
-        public Point GetScreenPoint(GoogleRectangle googleScreenView)
+        public Point GetScreenPoint(GoogleRectangle screenView)
         {
-            return new GoogleCoordinate(this, googleScreenView.Level).GetScreenPoint(googleScreenView);
+            return new GoogleCoordinate(this, screenView.Level).GetScreenPoint(screenView);
         }
 
-        public static Coordinate CoordinateFromScreen(GoogleRectangle googleScreenView, Point point)
+        public static Coordinate GetCoordinateFromScreen(GoogleRectangle screenView, Point point)
         {
-            return googleScreenView.LeftTop + new GoogleCoordinate(point.X, point.Y, googleScreenView.Level);
+            return screenView.LeftTop + new GoogleCoordinate(point.X, point.Y, screenView.Level);
         }
 
         public GoogleBlock GetGoogleBlock(int level)

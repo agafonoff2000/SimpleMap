@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ProgramMain.ExampleDb;
 using ProgramMain.Framework;
+using ProgramMain.Framework.WorkerThread;
 using ProgramMain.Layers;
 using ProgramMain.Map;
 using ProgramMain.Map.Google;
@@ -233,7 +234,7 @@ namespace ProgramMain.ExampleForms.Controls
             KeyValuePair<double, int>[] cableR = null;
             try
             {
-                var coordinate = Coordinate.CoordinateFromScreen(_netLayer.GoogleScreenView, location);
+                var coordinate = Coordinate.GetCoordinateFromScreen(_netLayer.ScreenView, location);
                 var tasks = new List<Task>
                     {
                         Task.Factory.StartNew(() => vertexR = _netLayer.FindNearestVertex(coordinate)),
@@ -272,7 +273,7 @@ namespace ProgramMain.ExampleForms.Controls
                     if (ShiftKey)
                     {
                         MapCtl_MouseWheel(this, new MouseEventArgs(e.Button, e.Clicks, e.X, e.Y, 1));
-                        CenterCoordinate = Coordinate.CoordinateFromScreen(_netLayer.GoogleScreenView, _mousePreviousLocation);
+                        CenterCoordinate = Coordinate.GetCoordinateFromScreen(_netLayer.ScreenView, _mousePreviousLocation);
                     }
                     else
                     {
@@ -306,7 +307,7 @@ namespace ProgramMain.ExampleForms.Controls
                     if (ShiftKey)
                     {
                         MapCtl_MouseWheel(this, new MouseEventArgs(e.Button, e.Clicks, e.X, e.Y, -1));
-                        CenterCoordinate = Coordinate.CoordinateFromScreen(_netLayer.GoogleScreenView, _mousePreviousLocation);
+                        CenterCoordinate = Coordinate.GetCoordinateFromScreen(_netLayer.ScreenView, _mousePreviousLocation);
                     }
                 }
                 else
@@ -350,7 +351,7 @@ namespace ProgramMain.ExampleForms.Controls
 
             if (!ShiftKey && !FindMapObjects(_mousePreviousLocation, out vertexRows, out cableRows))
             {
-                CenterCoordinate = Coordinate.CoordinateFromScreen(_netLayer.GoogleScreenView, _mousePreviousLocation);
+                CenterCoordinate = Coordinate.GetCoordinateFromScreen(_netLayer.ScreenView, _mousePreviousLocation);
             }
         }
 

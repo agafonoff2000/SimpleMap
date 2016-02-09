@@ -6,6 +6,8 @@ using System.Net;
 using System.Drawing;
 using System.Windows.Forms;
 using ProgramMain.Framework;
+using ProgramMain.Framework.WorkerThread;
+using ProgramMain.Framework.WorkerThread.Types;
 using ProgramMain.Map;
 using ProgramMain.Map.Google;
 
@@ -15,7 +17,7 @@ namespace ProgramMain.Layers
     {
         private const int MaxCacheSize = 240;
 
-        private Rectangle _googleBlockView;
+        private Rectangle _blockView;
         private readonly Bitmap _emptyBlock;       
 
         protected class MapWorkerEvent : WorkerEvent
@@ -65,7 +67,7 @@ namespace ProgramMain.Layers
             base.TranslateCoords();
 
             // Определяем видимый блок битмапа по оси X Y
-            _googleBlockView = GoogleScreenView.GoogleBlockView;
+            _blockView = ScreenView.BlockView;
         }
         
         private void PutMapThreadEvent(WorkerEventType eventType, GoogleBlock block, EventPriorityType priorityType)
@@ -79,15 +81,15 @@ namespace ProgramMain.Layers
             {
                 SwapDrawBuffer();
 
-                var localBlockView = new Rectangle(_googleBlockView.Location, _googleBlockView.Size);
-                var localScreenView = (GoogleRectangle)GoogleScreenView.Clone();
+                var localBlockView = new Rectangle(_blockView.Location, _blockView.Size);
+                var localScreenView = (GoogleRectangle)ScreenView.Clone();
                 
                 while (DrawImages(localBlockView, localScreenView) == false)
                 {
                     DropWorkerThreadEvents(WorkerEventType.RedrawLayer);
                     
-                    localBlockView = new Rectangle(_googleBlockView.Location, _googleBlockView.Size);
-                    localScreenView = (GoogleRectangle)GoogleScreenView.Clone();
+                    localBlockView = new Rectangle(_blockView.Location, _blockView.Size);
+                    localScreenView = (GoogleRectangle)ScreenView.Clone();
                 }
             }
             finally
@@ -119,7 +121,7 @@ namespace ProgramMain.Layers
 
                     if (Terminating) return true;
 
-                    if (localScreenView.CompareTo(GoogleScreenView) != 0) return false;
+                    if (localScreenView.CompareTo(ScreenView) != 0) return false;
                 }
             }
             return true;
@@ -136,12 +138,12 @@ namespace ProgramMain.Layers
         {
             if (Terminating) return;
 
-            if (block.Level == Level && PointContains(block.Pt, _googleBlockView))
+            if (block.Level == Level && PointContains(block.Pt, _blockView))
             {
                 var bmp = FindImage(block);
                 if (bmp != null)
                 {
-                    var rect = ((GoogleRectangle)block).GetScreenRect(GoogleScreenView);
+                    var rect = ((GoogleRectangle)block).GetScreenRect(ScreenView);
                     DrawBitmap(bmp, rect.Location);
 
                     FireIvalidateLayer(rect);
@@ -153,7 +155,7 @@ namespace ProgramMain.Layers
         {
             if (MapCache.ContainsKey(block))
             {
-                MapCacheItem dimg = MapCache[block];
+                var dimg = MapCache[block];
                 dimg.Timestamp = DateTime.Now.Ticks;
                 return dimg.Bmp;
             }

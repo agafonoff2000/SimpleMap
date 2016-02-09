@@ -43,8 +43,8 @@ namespace ProgramMain.ExampleForms
             var frm = new FrmMapDownloader
                 {
                     _workMode = WorkMode.Download,
-                    Text = "Download Map",
-                    labelInfo = {Text = "Cache all map on local disk"},
+                    Text = @"Download Map",
+                    labelInfo = {Text = @"Cache all map on local disk"},
                 };
             frm.ShowDialog();
         }
@@ -56,8 +56,8 @@ namespace ProgramMain.ExampleForms
                     _workMode = WorkMode.SaveToImageFile,
                     _mapPiFormat = mapPiFormat,
                     _mapLevel = mapLevel,
-                    Text = "Save Map As Image",
-                    labelInfo = {Text = "Save big map as one image"}
+                    Text = @"Save Map As Image",
+                    labelInfo = {Text = @"Save big map as one image"}
                 };
 
             frm.ShowDialog();
@@ -142,10 +142,8 @@ namespace ProgramMain.ExampleForms
 
         private void DownloadThread(CancellationToken ct)
         {
-            var leftBound = new Coordinate(Properties.Settings.Default.LeftMapBound,
-                                           Properties.Settings.Default.TopMapBound);
-            var rightBound = new Coordinate(Properties.Settings.Default.RightMapBound,
-                                            Properties.Settings.Default.BottomMapBound);
+            var leftBound = new Coordinate(Properties.Settings.Default.LeftMapBound, Properties.Settings.Default.TopMapBound);
+            var rightBound = new Coordinate(Properties.Settings.Default.RightMapBound, Properties.Settings.Default.BottomMapBound);
 
             var rectBound = new CoordinateRectangle(leftBound, rightBound);
 
@@ -155,8 +153,8 @@ namespace ProgramMain.ExampleForms
                 var mapWidth = Convert.ToInt32((new GoogleCoordinate(rectBound.RightTop, mapLevel)).X - (new GoogleCoordinate(rectBound.LeftTop, mapLevel)).X) + 2 * GoogleBlock.BlockSize;
                 var mapHeight = Convert.ToInt32((new GoogleCoordinate(rectBound.LeftBottom, mapLevel)).Y - (new GoogleCoordinate(rectBound.LeftTop, mapLevel)).Y) + 2 * GoogleBlock.BlockSize;
 
-                var viewBound = rectBound.LineMiddlePoint.GoogleScreenViewFromCenter(mapWidth, mapHeight, mapLevel);
-                var blockView = viewBound.GoogleBlockView;
+                var viewBound = rectBound.LineMiddlePoint.GetScreenViewFromCenter(mapWidth, mapHeight, mapLevel);
+                var blockView = viewBound.BlockView;
                 mapBlockCount += (blockView.Right - blockView.Left + 1) * (blockView.Bottom - blockView.Top + 1);
             }
 
@@ -168,8 +166,8 @@ namespace ProgramMain.ExampleForms
                 var mapWidth = Convert.ToInt32((new GoogleCoordinate(rectBound.RightTop, mapLevel)).X - (new GoogleCoordinate(rectBound.LeftTop, mapLevel)).X) + 2 * GoogleBlock.BlockSize;
                 var mapHeight = Convert.ToInt32((new GoogleCoordinate(rectBound.LeftBottom, mapLevel)).Y - (new GoogleCoordinate(rectBound.LeftTop, mapLevel)).Y) + 2 * GoogleBlock.BlockSize;
 
-                var viewBound = rectBound.LineMiddlePoint.GoogleScreenViewFromCenter(mapWidth, mapHeight, mapLevel);
-                var blockView = viewBound.GoogleBlockView;
+                var viewBound = rectBound.LineMiddlePoint.GetScreenViewFromCenter(mapWidth, mapHeight, mapLevel);
+                var blockView = viewBound.BlockView;
 
                 for (var x = blockView.Left; x <= blockView.Right; x++)
                 {
@@ -195,23 +193,19 @@ namespace ProgramMain.ExampleForms
 
         private void GetFullMapThread(CancellationToken ct)
         {
-            var leftBound = new Coordinate(Properties.Settings.Default.LeftMapBound,
-                                           Properties.Settings.Default.TopMapBound);
-            var rightBound = new Coordinate(Properties.Settings.Default.RightMapBound,
-                                            Properties.Settings.Default.BottomMapBound);
+            var leftBound = new Coordinate(Properties.Settings.Default.LeftMapBound, Properties.Settings.Default.TopMapBound);
+            var rightBound = new Coordinate(Properties.Settings.Default.RightMapBound, Properties.Settings.Default.BottomMapBound);
 
             var rectBound = new CoordinateRectangle(leftBound, rightBound);
 
-            var mapWidth = Convert.ToInt32((new GoogleCoordinate(rectBound.RightTop, _mapLevel)).X -
-                                (new GoogleCoordinate(rectBound.LeftTop, _mapLevel)).X) + 2 * GoogleBlock.BlockSize;
-            var mapHeight = Convert.ToInt32((new GoogleCoordinate(rectBound.LeftBottom, _mapLevel)).Y -
-                                (new GoogleCoordinate(rectBound.LeftTop, _mapLevel)).Y) + 2 * GoogleBlock.BlockSize;
+            var mapWidth = Convert.ToInt32((new GoogleCoordinate(rectBound.RightTop, _mapLevel)).X - (new GoogleCoordinate(rectBound.LeftTop, _mapLevel)).X) + 2 * GoogleBlock.BlockSize;
+            var mapHeight = Convert.ToInt32((new GoogleCoordinate(rectBound.LeftBottom, _mapLevel)).Y - (new GoogleCoordinate(rectBound.LeftTop, _mapLevel)).Y) + 2 * GoogleBlock.BlockSize;
 
             var image = GraphicLayer.CreateCompatibleBitmap(null, mapWidth, mapHeight, _mapPiFormat);
             var graphics = Graphics.FromImage(image);
 
-            var viewBound = rectBound.LineMiddlePoint.GoogleScreenViewFromCenter(mapWidth, mapHeight, _mapLevel);
-            var blockView = viewBound.GoogleBlockView;
+            var viewBound = rectBound.LineMiddlePoint.GetScreenViewFromCenter(mapWidth, mapHeight, _mapLevel);
+            var blockView = viewBound.BlockView;
             var mapBlockCount = (blockView.Right - blockView.Left + 1) * (blockView.Bottom - blockView.Top + 1);
             var mapBlockNumber = 0;
             

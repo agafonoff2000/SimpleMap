@@ -4,6 +4,8 @@ using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.Threading;
 using System.Windows.Forms;
+using ProgramMain.Framework.WorkerThread;
+using ProgramMain.Framework.WorkerThread.Types;
 using ProgramMain.Map;
 using ProgramMain.Map.Google;
 
@@ -46,20 +48,20 @@ namespace ProgramMain.Framework
             }
         }
 
-        private GoogleRectangle _googleScreenView;
-        public GoogleRectangle GoogleScreenView
+        private GoogleRectangle _screenView;
+        public GoogleRectangle ScreenView
         {
             get
             {
-                return (GoogleRectangle)_googleScreenView.Clone();
+                return (GoogleRectangle)_screenView.Clone();
             }
         }
-        private CoordinateRectangle _coordinateScreenView;
-        protected CoordinateRectangle CoordinateScreenView
+        private CoordinateRectangle _coordinateView;
+        protected CoordinateRectangle CoordinateView
         {
             get
             {
-                return (CoordinateRectangle)_coordinateScreenView.Clone();
+                return (CoordinateRectangle)_coordinateView.Clone();
             }
         }
 
@@ -188,7 +190,7 @@ namespace ProgramMain.Framework
                 
                 if (Width > 0 && Height > 0 && !Terminating)
                 {
-                    for (int i = 0; i <= 1; i++)
+                    for (var i = 0; i <= 1; i++)
                     {
                         _offScreen[i] = new Bitmap(Width, Height, PiFormat);
                         _offScreenDc[i] = Graphics.FromImage(_offScreen[i]);
@@ -232,9 +234,9 @@ namespace ProgramMain.Framework
         {
             //определяем видимую область в целочисленных координатах гугла
             //относительно заданной центральной точки
-            _googleScreenView = _centerCoordinate.GoogleScreenViewFromCenter(Width, Height, _level);
+            _screenView = _centerCoordinate.GetScreenViewFromCenter(Width, Height, _level);
             //определяем видимую область в широте и долготе
-            _coordinateScreenView = GoogleScreenView;
+            _coordinateView = ScreenView;
         }
 
         public void Update()

@@ -123,7 +123,7 @@ namespace ProgramMain.Map.Google
         }
 
         //Стартовый и конечный(видимый) блок битмапа по оси X Y
-        public Rectangle GoogleBlockView
+        public Rectangle BlockView
         {
             get
             {
@@ -135,16 +135,16 @@ namespace ProgramMain.Map.Google
             }
         }
 
-        public Rectangle GetScreenRect(GoogleRectangle googleScreenView)
+        public Rectangle GetScreenRect(GoogleRectangle screenView)
         {
-            if (Level != googleScreenView.Level)
+            if (Level != screenView.Level)
             {
-                googleScreenView = new GoogleRectangle(
-                    new CoordinateRectangle(googleScreenView.LeftTop, googleScreenView.RightBottom), Level);
+                screenView = new GoogleRectangle(
+                    new CoordinateRectangle(screenView.LeftTop, screenView.RightBottom), Level);
             }
 
-            var pt1 = LeftTop.GetScreenPoint(googleScreenView);
-            var pt2 = RightBottom.GetScreenPoint(googleScreenView);
+            var pt1 = LeftTop.GetScreenPoint(screenView);
+            var pt2 = RightBottom.GetScreenPoint(screenView);
 
             return Rectangle.FromLTRB(pt1.X, pt1.Y, pt2.X, pt2.Y);
         }

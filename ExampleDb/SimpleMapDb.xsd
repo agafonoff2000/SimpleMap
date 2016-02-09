@@ -14,7 +14,7 @@
   <xs:element name="SimpleMapDb" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msdata:EnforceConstraints="False" msprop:EnableTableAdapterManager="False" msprop:Generator_DataSetName="SimpleMapDb" msprop:Generator_UserDSName="SimpleMapDb">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="Vertexes" msprop:Generator_TableClassName="VertexesDataTable" msprop:Generator_TableVarName="tableVertexes" msprop:Generator_RowChangedName="VertexesRowChanged" msprop:Generator_TablePropName="Vertexes" msprop:Generator_RowDeletingName="VertexesRowDeleting" msprop:Generator_RowChangingName="VertexesRowChanging" msprop:Generator_RowEvHandlerName="VertexesRowChangeEventHandler" msprop:Generator_RowDeletedName="VertexesRowDeleted" msprop:Generator_RowClassName="VertexesRow" msprop:Generator_UserTableName="Vertexes" msprop:Generator_RowEvArgName="VertexesRowChangeEvent">
+        <xs:element name="Vertexes" msprop:Generator_TableClassName="VertexesDataTable" msprop:Generator_TableVarName="tableVertexes" msprop:Generator_TablePropName="Vertexes" msprop:Generator_RowDeletingName="VertexesRowDeleting" msprop:Generator_RowChangingName="VertexesRowChanging" msprop:Generator_RowEvHandlerName="VertexesRowChangeEventHandler" msprop:Generator_RowDeletedName="VertexesRowDeleted" msprop:Generator_UserTableName="Vertexes" msprop:Generator_RowChangedName="VertexesRowChanged" msprop:Generator_RowEvArgName="VertexesRowChangeEvent" msprop:Generator_RowClassName="VertexesRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:int" />
@@ -30,7 +30,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Cables" msprop:Generator_TableClassName="CablesDataTable" msprop:Generator_TableVarName="tableCables" msprop:Generator_RowChangedName="CablesRowChanged" msprop:Generator_TablePropName="Cables" msprop:Generator_RowDeletingName="CablesRowDeleting" msprop:Generator_RowChangingName="CablesRowChanging" msprop:Generator_RowEvHandlerName="CablesRowChangeEventHandler" msprop:Generator_RowDeletedName="CablesRowDeleted" msprop:Generator_RowClassName="CablesRow" msprop:Generator_UserTableName="Cables" msprop:Generator_RowEvArgName="CablesRowChangeEvent">
+        <xs:element name="Cables" msprop:Generator_TableClassName="CablesDataTable" msprop:Generator_TableVarName="tableCables" msprop:Generator_TablePropName="Cables" msprop:Generator_RowDeletingName="CablesRowDeleting" msprop:Generator_RowChangingName="CablesRowChanging" msprop:Generator_RowEvHandlerName="CablesRowChangeEventHandler" msprop:Generator_RowDeletedName="CablesRowDeleted" msprop:Generator_UserTableName="Cables" msprop:Generator_RowChangedName="CablesRowChanged" msprop:Generator_RowEvArgName="CablesRowChangeEvent" msprop:Generator_RowClassName="CablesRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:int" />
@@ -49,7 +49,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Buildings" msprop:Generator_TableClassName="BuildingsDataTable" msprop:Generator_TableVarName="tableBuildings" msprop:Generator_TablePropName="Buildings" msprop:Generator_RowDeletingName="BuildingsRowDeleting" msprop:Generator_RowChangingName="BuildingsRowChanging" msprop:Generator_RowEvHandlerName="BuildingsRowChangeEventHandler" msprop:Generator_RowDeletedName="BuildingsRowDeleted" msprop:Generator_UserTableName="Buildings" msprop:Generator_RowChangedName="BuildingsRowChanged" msprop:Generator_RowEvArgName="BuildingsRowChangeEvent" msprop:Generator_RowClassName="BuildingsRow">
+        <xs:element name="Buildings" msprop:Generator_TableClassName="BuildingsDataTable" msprop:Generator_TableVarName="tableBuildings" msprop:Generator_RowChangedName="BuildingsRowChanged" msprop:Generator_TablePropName="Buildings" msprop:Generator_RowDeletingName="BuildingsRowDeleting" msprop:Generator_RowChangingName="BuildingsRowChanging" msprop:Generator_RowEvHandlerName="BuildingsRowChangeEventHandler" msprop:Generator_RowDeletedName="BuildingsRowDeleted" msprop:Generator_RowClassName="BuildingsRow" msprop:Generator_UserTableName="Buildings" msprop:Generator_RowEvArgName="BuildingsRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:int" />
@@ -63,15 +63,15 @@
         </xs:element>
       </xs:choice>
     </xs:complexType>
-    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+    <xs:unique name="Vertexes_Constraint_ID" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:Vertexes" />
       <xs:field xpath="mstns:ID" />
     </xs:unique>
-    <xs:unique name="Cables_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+    <xs:unique name="Cables_Constraint_ID" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:Cables" />
       <xs:field xpath="mstns:ID" />
     </xs:unique>
-    <xs:unique name="Buildings_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+    <xs:unique name="Buildings_Constraint_ID" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:Buildings" />
       <xs:field xpath="mstns:ID" />
     </xs:unique>

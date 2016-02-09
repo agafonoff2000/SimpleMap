@@ -1,9 +1,10 @@
-ï»¿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
+using ProgramMain.Framework.WorkerThread.Types;
 
-namespace ProgramMain.Framework
+namespace ProgramMain.Framework.WorkerThread
 {
     public class WorkerMessageThread
     {
@@ -13,7 +14,7 @@ namespace ProgramMain.Framework
 
         public WorkerMessageThread(Control delegateCOntrol)
         {
-            //Ð´Ð»Ñ Ð´ÐµÐ»ÐµÐ³ÐµÐ¹Ñ‚Ð° Ð² Ñ€Ð¾Ð´Ð¸Ñ‚ÐµÐ»ÑŒÑÐºÐ¸Ð¹ Ð¿Ð¾Ñ‚Ð¾Ðº
+            //äëÿ äåëåãåéòà â ðîäèòåëüñêèé ïîòîê
             _delegateControl = delegateCOntrol;
 
             CreateWorkerThread();
@@ -42,84 +43,6 @@ namespace ProgramMain.Framework
             }
         }
 
-        protected enum WorkerEventType { None, RedrawLayer, DownloadImage, DrawImage, ReloadData, AddDbObject };
-        
-        public enum EventPriorityType { Idle = 0, Low = 1, BelowNormal = 2, Normal = 3, AboveNormal = 4, High = 5, Critical = 6 };
-
-        protected class WorkerEvent : IComparable
-        {
-            // Summary:
-            //     Represents an event with no event data.
-            public static readonly WorkerEvent Empty = new WorkerEvent();
-
-            private readonly WorkerEventType _eventType = WorkerEventType.None;
-            public WorkerEventType EventType
-            {
-                get
-                {
-                    return _eventType;
-                }
-            }
-
-            private readonly EventPriorityType _eventPriority = EventPriorityType.Normal;
-            public EventPriorityType EventPriority
-            {
-                get
-                {
-                    return _eventPriority;
-                }
-            }
-
-            private readonly bool _collapsible;
-            public bool IsCollapsible
-            {
-                get
-                {
-                    return _collapsible;
-                }
-            }
-
-            private WorkerEvent()
-            {
-                _collapsible = false;
-            }
-
-            public WorkerEvent(WorkerEventType pEventType)
-            {
-                _eventType = pEventType;
-                _collapsible = false;
-                _eventPriority = EventPriorityType.Normal;
-            }
-
-            public WorkerEvent(WorkerEventType pEventType, bool pIsCollapsible)
-            {
-                _eventType = pEventType;
-                _collapsible = pIsCollapsible;
-                _eventPriority = EventPriorityType.Normal;
-            }
-
-            public WorkerEvent(WorkerEventType pEventType, bool pIsCollapsible, EventPriorityType pPriorityType)
-            {
-                _eventType = pEventType;
-                _collapsible = pIsCollapsible;
-                _eventPriority = pPriorityType;
-            }
-
-            virtual public int CompareTo(object obj)
-            {
-                if (obj != null)
-                {
-                    if (((WorkerEvent)obj)._eventType > EventType)
-                        return 1;
-                    if (((WorkerEvent)obj)._eventType < EventType)
-                        return -1;
-                    
-                    return 0;
-                }
-                return -1;
-            }
-        }
-
         private const int WorkerEventSize = 1000;
         private readonly List<WorkerEvent> _workerEventList = new List<WorkerEvent>();
         private readonly SemaphoreSlim _lockWe = new SemaphoreSlim(1, 1);
@@ -143,7 +66,7 @@ namespace ProgramMain.Framework
         protected void FireOwnerEvent<T>(OwnerEventDelegate<T> ownerEvent, T eventParams) where T : OwnerEventArgs
         {
             if (Terminating) return;
-            //ÑÐ¸Ð½Ñ…Ñ€Ð¾Ð½Ð½Ñ‹Ð¹ Ð²Ñ‹Ð·Ð¾Ð² Ð¸Ð· Ñ€Ð°Ð±Ð¾Ñ‡ÐµÐ³Ð¾ Ð¿Ð¾Ñ‚Ð¾ÐºÐ° Ð² Ð¿Ð¾Ñ‚Ð¾Ðº Ð¿Ñ€Ð¸Ð»Ð¾Ð¶ÐµÐ½Ð¸Ñ
+            //ñèíõðîííûé âûçîâ èç ðàáî÷åãî ïîòîêà â ïîòîê ïðèëîæåíèÿ
             _delegateControl.Invoke(ownerEvent, new Object[] { eventParams });
         }
 
@@ -271,14 +194,14 @@ namespace ProgramMain.Framework
 
         private WorkerEvent PopupWorkerThreadEvent(WorkerEventType workerEventType)
         {
-            //Ð²Ñ‹Ð±Ð¸Ñ€Ð°ÐµÐ¼ Ð·Ð°Ð´Ð°Ð½Ð¸Ñ Ð¸Ð· Ð¾Ñ‡ÐµÑ€ÐµÐ´Ð¸, RedrawLayer Ð¸Ð¼ÐµÐµÑ‚ Ð½Ð¸Ð·ÑˆÐ¸Ð¹ Ð¿Ñ€Ð¸Ð¾Ñ€Ð¸Ñ‚ÐµÑ‚
+            //âûáèðàåì çàäàíèÿ èç î÷åðåäè, RedrawLayer èìååò íèçøèé ïðèîðèòåò
             var res = WorkerEvent.Empty;
             try
             {
                 _lockWe.Wait();
 
-                //ÐµÑÐ»Ð¸ Ð½Ðµ Ð·Ð°Ð´Ð°Ð½ Ñ‚Ð¸Ð¿ Ð·Ð°Ð´Ð°Ð½Ð¸Ðµ, Ñ‚Ð¾ Ð¸Ñ‰ÐµÐ¼ Ð»ÑŽÐ±Ð¾Ð¹ Ð² ÑÐ¾Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²Ð¸Ð¸ Ñ Ð¿Ñ€Ð¸Ð¾Ñ€Ð¸Ñ‚ÐµÑ‚Ð¾Ð¼)
-                for (var i = WorkerEventPriorityTypeConverter.Length - 1; i >= 0; i--)
+                //åñëè íå çàäàí òèï çàäàíèå, òî èùåì ëþáîé â ñîîòâåòñòâèè ñ ïðèîðèòåòîì)
+                for (var i = EventPriorityTypeConverter.Length - 1; i >= 0; i--)
                 {
                     var item = i.ToEventPriorityType();
 
@@ -294,7 +217,7 @@ namespace ProgramMain.Framework
 
                 if (res != WorkerEvent.Empty)
                 {
-                    //Ð²Ñ‹Ð±Ð¸Ñ€Ð°ÐµÐ¼ Ð²ÑÐµ/Ð¸Ð»Ð¸ Ð¾Ð´Ð½Ð¾ Ð·Ð°Ð´Ð°Ð½Ð¸Ðµ Ð´Ð°Ð½Ð½Ð¾Ð³Ð¾ Ñ‚Ð¸Ð¿Ð°(Ð·Ð°Ð²Ð¸ÑÐ¸Ñ‚ Ð¾Ñ‚ Ñ‚Ð¸Ð¿Ð° Ð·Ð°Ð´Ð°Ð½Ð¸Ñ)
+                    //âûáèðàåì âñå/èëè îäíî çàäàíèå äàííîãî òèïà(çàâèñèò îò òèïà çàäàíèÿ)
                     if (res.IsCollapsible)
                     {
                         _workerEventList.RemoveAll(we => we.CompareTo(res) == 0);
