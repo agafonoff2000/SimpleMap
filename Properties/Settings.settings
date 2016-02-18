@@ -2,16 +2,10 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ProgramMain.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="MapPath" Description="Путь к кешу с картой на диске" Type="System.String" Scope="User">
+    <Setting Name="MapCacheLocalPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">SimpleMap\</Value>
     </Setting>
-    <Setting Name="StartLatitude" Description="Начальная широта карты(центральная точка)" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">55.75676</Value>
-    </Setting>
-    <Setting Name="StartLongitude" Description="Начальная долгота карты(центральная точка)" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">37.61894</Value>
-    </Setting>
-    <Setting Name="StartZoomLevel" Description="Режим увеличения карты по умолчанию" Type="System.Int32" Scope="User">
+    <Setting Name="StartZoomLevel" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">12</Value>
     </Setting>
     <Setting Name="GoogleUrl" Type="System.String" Scope="Application">

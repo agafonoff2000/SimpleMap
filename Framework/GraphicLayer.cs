@@ -20,9 +20,7 @@ namespace ProgramMain.Framework
         private enum ActiveDrawBuffer {DC0 = 0, DC1 = 1};
         private ActiveDrawBuffer _activeDC = ActiveDrawBuffer.DC0;
 
-        private Coordinate _centerCoordinate = new Coordinate(
-            Properties.Settings.Default.StartLongitude, 
-            Properties.Settings.Default.StartLatitude);
+        private Coordinate _centerCoordinate;
         private int _level = Properties.Settings.Default.StartZoomLevel;
 
         public Coordinate CenterCoordinate

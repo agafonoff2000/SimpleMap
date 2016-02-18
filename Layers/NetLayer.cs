@@ -201,9 +201,13 @@ namespace ProgramMain.Layers
                     var pt = coordinate.GetScreenPoint(localScreenView);
 
                     DrawBitmap(Vertex, Point.Subtract(pt, HalfVertexSize));
-                    var caption = row.Caption;
-                    if (!String.IsNullOrEmpty(caption))
-                        DrawString(caption, HalfVertexSize.Height, Point.Add(pt, HalfVertexSize));
+
+                    if (Level >= 14)
+                    {
+                        var caption = row.Caption;
+                        if (!String.IsNullOrEmpty(caption))
+                            DrawString(caption, HalfVertexSize.Height, Point.Add(pt, HalfVertexSize));
+                    }
                 }
             }
             catch (Exception ex)
@@ -235,11 +239,16 @@ namespace ProgramMain.Layers
 
                     DrawLine(rect, 2, Color.Blue);
 
-                    var coordinate = cabRect.LineMiddlePoint;
-                    var caption = row.Caption;
-                    var point = coordinate.GetScreenPoint(localScreenView);
-                    if (!String.IsNullOrEmpty(caption))
-                        DrawString(caption, HalfVertexSize.Height, Point.Add(point, HalfVertexSize));
+                    if (Level >= 14)
+                    {
+                        var caption = row.Caption;
+                        if (!String.IsNullOrEmpty(caption))
+                        {
+                            var coordinate = cabRect.LineMiddlePoint;
+                            var point = coordinate.GetScreenPoint(localScreenView);
+                            DrawString(caption, HalfVertexSize.Height, Point.Add(point, HalfVertexSize));
+                        }
+                    }
                 }
              }
              catch(Exception ex)

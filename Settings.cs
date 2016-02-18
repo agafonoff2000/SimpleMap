@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using ProgramMain.Map;
 using ProgramMain.Map.Google;
 
 // ReSharper disable CheckNamespace
@@ -45,7 +46,7 @@ namespace ProgramMain.Properties {
 
         public static string GetMapFileName(GoogleBlock block)
         {
-            var mapPath = Default.MapPath;
+            var mapPath = Default.MapCacheLocalPath;
             if (!Path.IsPathRooted(mapPath))
             {
                 mapPath = Path.Combine(
@@ -55,6 +56,18 @@ namespace ProgramMain.Properties {
             var fileName = Path.Combine(mapPath, block.Level + "\\" + (block.X / 100) + "_" + (block.Y / 100) + "\\" + block.Level + "_" + block.X + "_" + block.Y + ".png");
             
             return fileName;
+        }
+
+        public static Coordinate CenterMapBound
+        {
+            get
+            {
+                var leftBound = new Coordinate(Default.LeftMapBound, Default.TopMapBound);
+                var rightBound = new Coordinate(Default.RightMapBound, Default.BottomMapBound);
+                var rectBound = new CoordinateRectangle(leftBound, rightBound);
+
+                return rectBound.LineMiddlePoint;
+            }
         }
     }
 }

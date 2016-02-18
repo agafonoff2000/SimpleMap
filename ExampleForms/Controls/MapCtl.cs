@@ -79,7 +79,7 @@ namespace ProgramMain.ExampleForms.Controls
 
             var piFormat = GraphicLayer.ObtainCompatiblePixelFormat(this);
 
-            var coordinate = new Coordinate(Settings.Default.StartLongitude, Settings.Default.StartLatitude);
+            var coordinate = Settings.CenterMapBound;
 
             _mapLayer = new MapLayer(Width, Height, coordinate, Settings.Default.StartZoomLevel, this, piFormat);
             _netLayer = new NetLayer(Width, Height, coordinate, Settings.Default.StartZoomLevel, this, piFormat);
@@ -218,7 +218,7 @@ namespace ProgramMain.ExampleForms.Controls
         {
             if (_mapLayer.Terminating) return;
 
-            CenterCoordinate = new Coordinate(Settings.Default.StartLongitude, Settings.Default.StartLatitude);
+            CenterCoordinate = Settings.CenterMapBound;
         }
 
         public void MoveCenterMapObject(decimal longitude, decimal latitude)

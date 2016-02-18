@@ -23,59 +23,19 @@ namespace ProgramMain.Properties {
             }
         }
         
-        /// <summary>
-        /// Путь к кешу с картой на диске
-        /// </summary>
         [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsDescriptionAttribute("Путь к кешу с картой на диске")]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("SimpleMap\\")]
-        public string MapPath {
+        public string MapCacheLocalPath {
             get {
-                return ((string)(this["MapPath"]));
+                return ((string)(this["MapCacheLocalPath"]));
             }
             set {
-                this["MapPath"] = value;
+                this["MapCacheLocalPath"] = value;
             }
         }
         
-        /// <summary>
-        /// Начальная широта карты(центральная точка)
-        /// </summary>
         [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsDescriptionAttribute("Начальная широта карты(центральная точка)")]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("55.75676")]
-        public double StartLatitude {
-            get {
-                return ((double)(this["StartLatitude"]));
-            }
-            set {
-                this["StartLatitude"] = value;
-            }
-        }
-        
-        /// <summary>
-        /// Начальная долгота карты(центральная точка)
-        /// </summary>
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsDescriptionAttribute("Начальная долгота карты(центральная точка)")]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("37.61894")]
-        public double StartLongitude {
-            get {
-                return ((double)(this["StartLongitude"]));
-            }
-            set {
-                this["StartLongitude"] = value;
-            }
-        }
-        
-        /// <summary>
-        /// Режим увеличения карты по умолчанию
-        /// </summary>
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsDescriptionAttribute("Режим увеличения карты по умолчанию")]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("12")]
         public int StartZoomLevel {
