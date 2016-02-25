@@ -33,7 +33,7 @@ namespace ProgramMain.Layers.MapObjects
             
             //read data from db here
 
-            Parallel.ForEach(BuildingDbRows.Cast<SimpleMapDb.BuildingsRow>(), Insert);
+            Parallel.ForEach(BuildingDbRows, Insert);
         }
 
         public void MergeData(SimpleMapDb.BuildingsDataTable buildings)
@@ -42,7 +42,7 @@ namespace ProgramMain.Layers.MapObjects
 
             BuildingDbRows.Merge(buildings, false, MissingSchemaAction.Error);
 
-            Parallel.ForEach(buildings.Cast<SimpleMapDb.BuildingsRow>(), delegate(SimpleMapDb.BuildingsRow row)
+            Parallel.ForEach(buildings, row =>
             {
                 var newRow = BuildingDbRows.FindByID(row.ID);
                 Insert(newRow);

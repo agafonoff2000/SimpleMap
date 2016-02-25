@@ -33,7 +33,7 @@ namespace ProgramMain.Layers.MapObjects
 
             //read data from db here
 
-            Parallel.ForEach(VertexDbRows.Cast<SimpleMapDb.VertexesRow>(), Insert);
+            Parallel.ForEach(VertexDbRows, Insert);
         }
 
         public void MergeData(SimpleMapDb.VertexesDataTable vertexes)
@@ -42,7 +42,7 @@ namespace ProgramMain.Layers.MapObjects
 
             VertexDbRows.Merge(vertexes, false, MissingSchemaAction.Error);
 
-            Parallel.ForEach(vertexes.Cast<SimpleMapDb.VertexesRow>(), row =>
+            Parallel.ForEach(vertexes, row =>
             {
                 var newRow = VertexDbRows.FindByID(row.ID);
                 Insert(newRow);
