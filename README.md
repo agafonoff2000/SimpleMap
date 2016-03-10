@@ -7,7 +7,7 @@ The problem, project solve:
 Fast image(gif,png,jpg) draw to screen trhough GDI+ written pure on C# without any direct mapping to WinApi.
 Double buffering technology, all image changes draw into memory buffer and then changes apply to the screen.
 Download map images from google.
-Support google map coordinate system through sub classes and operators.
+Support google map coordinate system through sub classes and operators. Translate google coordinates to longitude and latitude. Translate longitude and latitude to google coordinates. Math operators support to work with coordinates. 
 Cache google map files on disk.
 Download google image file cache to local storage.
 Save google map as one image.
