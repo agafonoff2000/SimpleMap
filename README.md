@@ -1,6 +1,7 @@
 # SimpleMap
 
 This is fully workable sample project on C# for Visual Studio 2012 or above.
+You can download and run SimpleMap.exe. Or download and compile the source code.
 
 The problem, project solve:
 
