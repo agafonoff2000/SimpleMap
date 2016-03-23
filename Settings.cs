@@ -31,7 +31,7 @@ namespace ProgramMain.Properties {
             // Add code to handle the SettingChangingEvent event here.
             if (sender != null && e != null)
             {
-                
+            
             }
         }
         
@@ -58,15 +58,18 @@ namespace ProgramMain.Properties {
             return fileName;
         }
 
+        private static Coordinate _centerMapBound;
+
         public static Coordinate CenterMapBound
         {
             get
             {
-                var leftBound = new Coordinate(Default.LeftMapBound, Default.TopMapBound);
-                var rightBound = new Coordinate(Default.RightMapBound, Default.BottomMapBound);
-                var rectBound = new CoordinateRectangle(leftBound, rightBound);
-
-                return rectBound.LineMiddlePoint;
+                if (_centerMapBound == null)
+                {
+                    var rectBound = new CoordinateRectangle(Default.LeftMapBound, Default.TopMapBound, Default.RightMapBound, Default.BottomMapBound);
+                    _centerMapBound = rectBound.LineMiddlePoint;
+                }
+                return _centerMapBound;
             }
         }
     }

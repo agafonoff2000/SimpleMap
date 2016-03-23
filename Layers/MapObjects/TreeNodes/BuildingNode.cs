@@ -51,5 +51,10 @@ namespace ProgramMain.Layers.MapObjects.TreeNodes
         {
             get { return _row; }
         }
+
+        public static implicit operator BuildingNode(SimpleMapDb.BuildingsRow row)
+        {
+            return new BuildingNode(row);
+        }
     }
 }

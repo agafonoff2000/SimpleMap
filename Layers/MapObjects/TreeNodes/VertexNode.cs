@@ -44,5 +44,10 @@ namespace ProgramMain.Layers.MapObjects.TreeNodes
         {
             get { return _row; }
         }
+
+        public static implicit operator VertexNode(SimpleMapDb.VertexesRow row)
+        {
+            return new VertexNode(row);
+        }
     }
 }

@@ -17,14 +17,14 @@ namespace ProgramMain.Layers.MapObjects
             VertexDbRows = new SimpleMapDb.VertexesDataTable();
         }
 
-        public void Insert(SimpleMapDb.VertexesRow row)
+        protected void Insert(SimpleMapDb.VertexesRow row)
         {
-            Insert(new VertexNode(row));
+            base.Insert(row);
         }
 
-        public void Delete(SimpleMapDb.VertexesRow row)
+        protected void Delete(SimpleMapDb.VertexesRow row)
         {
-            Delete(new VertexNode(row));
+            base.Delete(row);
         }
 
         public void LoadData()

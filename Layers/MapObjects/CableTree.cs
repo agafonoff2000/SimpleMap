@@ -17,14 +17,14 @@ namespace ProgramMain.Layers.MapObjects
             CableDbRows = new SimpleMapDb.CablesDataTable();
         }
 
-        public void Insert(SimpleMapDb.CablesRow row)
+        protected void Insert(SimpleMapDb.CablesRow row)
         {
-            Insert(new CableNode(row));
+            base.Insert(row);
         }
 
-        public void Delete(SimpleMapDb.CablesRow row)
+        protected void Delete(SimpleMapDb.CablesRow row)
         {
-            Delete(new CableNode(row));
+            base.Delete(row);
         }
         
         public void LoadData()

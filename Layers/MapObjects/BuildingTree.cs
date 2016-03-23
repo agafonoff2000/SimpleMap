@@ -17,14 +17,14 @@ namespace ProgramMain.Layers.MapObjects
             BuildingDbRows = new SimpleMapDb.BuildingsDataTable();
         }
 
-        public void Insert(SimpleMapDb.BuildingsRow row)
+        protected void Insert(SimpleMapDb.BuildingsRow row)
         {
-            Insert(new BuildingNode(row));
+            base.Insert(row);
         }
 
-        public void Delete(SimpleMapDb.BuildingsRow row)
+        protected void Delete(SimpleMapDb.BuildingsRow row)
         {
-            Delete(new BuildingNode(row));
+            base.Delete(row);
         }
         
         public void LoadData()

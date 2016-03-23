@@ -51,5 +51,10 @@ namespace ProgramMain.Layers.MapObjects.TreeNodes
         {
             get { return _row; }
         }
+
+        public static implicit operator CableNode(SimpleMapDb.CablesRow row)
+        {
+            return new CableNode(row);
+        }
     }
 }
