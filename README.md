@@ -3,6 +3,10 @@
 This is fully workable sample project on C# for Visual Studio 2012 or above.
 You can download and run SimpleMap.exe. Or download and compile the source code.
 
+SimpleMap/ExampleForms/FrmMapDownloader.cs demonstrates how to download google map area as single image (GetFullMapThread function) or how to cache google map on local disk (DownloadThread function).
+
+SimpleMap/ExampleForms/FrmOpticMap.cs demostrates how to draw cached google map images to screen with custom objects as line, circles etc.
+
 The problem, project solve:
 
 Fast image(gif,png,jpg) draw to screen trhough GDI+ written pure on C# without any direct mapping to WinApi.
