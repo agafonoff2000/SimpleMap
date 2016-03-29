@@ -5,7 +5,7 @@ You can download and run SimpleMap.exe. Or download and compile the source code.
 
 SimpleMap/ExampleForms/FrmMapDownloader.cs demonstrates how to download google map area as single image (GetFullMapThread function) or how to cache google map on local disk (DownloadThread function).
 
-SimpleMap/ExampleForms/FrmOpticMap.cs demostrates how to draw cached google map images to screen with custom objects as line, circles etc.
+SimpleMap/ExampleForms/Controls/MapCtl.cs demostrates how to draw cached google map images to screen with custom objects as lines, bitmaps etc.
 
 The problem, project solve:
 
