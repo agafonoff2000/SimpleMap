@@ -13,6 +13,8 @@ using ProgramMain.Map;
 using ProgramMain.Map.Google;
 using ProgramMain.Properties;
 
+using HashItem = System.Collections.Generic.KeyValuePair<double, int>;
+
 namespace ProgramMain.ExampleForms.Controls
 {
     public partial class MapCtl : UserControl
@@ -61,7 +63,6 @@ namespace ProgramMain.ExampleForms.Controls
         private Point _mousePreviousLocation;
         private Coordinate _coordinatePreviosLocation;
         private bool ShiftKey { get; set; }
-        private int _menuObjectId;
 
         //protected override CreateParams CreateParams
         //{
@@ -228,10 +229,10 @@ namespace ProgramMain.ExampleForms.Controls
             CenterCoordinate = new Coordinate(longitude, latitude);
         }
 
-        private bool FindMapObjects(Point location, out KeyValuePair<double, int>[] vertexRows, out KeyValuePair<double, int>[] cableRows)
+        private bool FindMapObjects(Point location, out HashItem[] vertexRows, out HashItem[] cableRows)
         {
-            KeyValuePair<double, int>[] vertexR = null;
-            KeyValuePair<double, int>[] cableR = null;
+            HashItem[] vertexR = null;
+            HashItem[] cableR = null;
             try
             {
                 var coordinate = Coordinate.GetCoordinateFromScreen(_netLayer.ScreenView, location);
@@ -263,8 +264,8 @@ namespace ProgramMain.ExampleForms.Controls
             if (e.Button == MouseButtons.Left)
             {
 
-                KeyValuePair<double, int>[] vertexRows;
-                KeyValuePair<double, int>[] cableRows;
+                HashItem[] vertexRows;
+                HashItem[] cableRows;
 
                 if (!FindMapObjects(e.Location, out vertexRows, out cableRows))
                 {
@@ -297,8 +298,8 @@ namespace ProgramMain.ExampleForms.Controls
             }
             else if (e.Button == MouseButtons.Right)
             {
-                KeyValuePair<double, int>[] vertexRows;
-                KeyValuePair<double, int>[] cableRows;
+                HashItem[] vertexRows;
+                HashItem[] cableRows;
 
                 if (!FindMapObjects(e.Location, out vertexRows, out cableRows))
                 {
@@ -312,42 +313,52 @@ namespace ProgramMain.ExampleForms.Controls
                 }
                 else
                 {
-                    if (vertexRows.Length > 0)
+                    var menu = new ContextMenu();
+                    
+                    foreach(var row in vertexRows)
                     {
-                        _menuObjectId = vertexRows[0].Value;
-                        var c = new ContextMenu();
-                        c.MenuItems.Add(@"Delete Vertex", MapCtl_DeleteVertexClick);
-                        c.Show(this, e.Location);
+                        var vertex = _netLayer.GetVertex(row.Value);
+                        var item = menu.MenuItems.Add(String.Format(@"Delete Vertex: {0}", vertex.Caption), MapCtl_DeleteVertexClick);
+                        item.Tag = row.Value;
                     }
-                    else if (cableRows.Length > 0)
+                    foreach (var row in cableRows)
                     {
-                        _menuObjectId = cableRows[0].Value;
-                        var c = new ContextMenu();
-                        c.MenuItems.Add(@"Delete Cable", MapCtl_DeleteCableClick);
-                        c.Show(this, e.Location);
+                        var cable = _netLayer.GetCable(row.Value);
+                        var item = menu.MenuItems.Add(String.Format(@"Delete Cable: {0}", cable.Caption), MapCtl_DeleteCableClick);
+                        item.Tag = row.Value;
                     }
+                    
+                    menu.Show(this, e.Location);
                 }
             }
         }
 
         private void MapCtl_DeleteVertexClick(object sender, EventArgs e)
         {
-            _netLayer.RemoveVertex(_menuObjectId);
-            _menuObjectId = 0;
+            var item = sender as MenuItem;
+            if (item != null && item.Tag is int)
+            {
+                var menuObjectId = (int)item.Tag;
+                _netLayer.RemoveVertex(menuObjectId);
+            }
         }
 
         private void MapCtl_DeleteCableClick(object sender, EventArgs e)
         {
-            _netLayer.RemoveCable(_menuObjectId);
-            _menuObjectId = 0;
+            var item = sender as MenuItem;
+            if (item != null && item.Tag is int)
+            {
+                var menuObjectId = (int)item.Tag;
+                _netLayer.RemoveCable(menuObjectId);
+            }
         }
 
         private void MapCtl_DoubleClick(object sender, EventArgs e)
         {
             if (_mapLayer.Terminating) return;
 
-            KeyValuePair<double, int>[] vertexRows;
-            KeyValuePair<double, int>[] cableRows;
+            HashItem[] vertexRows;
+            HashItem[] cableRows;
 
             if (!ShiftKey && !FindMapObjects(_mousePreviousLocation, out vertexRows, out cableRows))
             {
@@ -390,8 +401,8 @@ namespace ProgramMain.ExampleForms.Controls
             {
                 if (String.IsNullOrEmpty(toolTip1.GetToolTip(this)))
                 {
-                    KeyValuePair<double, int>[] vertexRows;
-                    KeyValuePair<double, int>[] cableRows;
+                    HashItem[] vertexRows;
+                    HashItem[] cableRows;
                     FindMapObjects(e.Location, out vertexRows, out cableRows);
 
                     if (vertexRows.Length > 0)
