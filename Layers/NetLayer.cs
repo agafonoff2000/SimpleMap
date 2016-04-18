@@ -5,6 +5,7 @@ using System.Linq;
 using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using ProgramMain.ExampleDb;
 using ProgramMain.Framework;
 using ProgramMain.Framework.WorkerThread;
@@ -76,8 +77,8 @@ namespace ProgramMain.Layers
 
         public double CoordinateTolerance { get; private set; }
 
-        public NetLayer(int width, int height, Coordinate centerCoordinate, int level, PixelFormat piFormat)
-            : base(width, height, centerCoordinate, level, piFormat)
+        public NetLayer(int width, int height, Coordinate centerCoordinate, int level, Control delegateControl, PixelFormat piFormat)
+            : base(width, height, centerCoordinate, level, delegateControl, piFormat)
         {
             CoordinateTolerance = 0;
 

@@ -4,6 +4,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Net;
 using System.Drawing;
+using System.Windows.Forms;
 using ProgramMain.Framework;
 using ProgramMain.Framework.WorkerThread;
 using ProgramMain.Framework.WorkerThread.Types;
@@ -55,8 +56,8 @@ namespace ProgramMain.Layers
 
         private static readonly SortedDictionary<GoogleBlock, MapCacheItem> MapCache = new SortedDictionary<GoogleBlock, MapCacheItem>();
 
-        public MapLayer(int width, int height, Coordinate centerCoordinate, int level, PixelFormat piFormat)
-            : base(width, height, centerCoordinate, level, piFormat)
+        public MapLayer(int width, int height, Coordinate centerCoordinate, int level, Control delegateControl, PixelFormat piFormat)
+            : base(width, height, centerCoordinate, level, delegateControl, piFormat)
         {
             _emptyBlock = CreateCompatibleBitmap(null, GoogleBlock.BlockSize, GoogleBlock.BlockSize, piFormat);
         }

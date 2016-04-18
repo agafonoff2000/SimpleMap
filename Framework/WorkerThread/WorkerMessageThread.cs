@@ -10,13 +10,12 @@ namespace ProgramMain.Framework.WorkerThread
     {
         private readonly AutoResetEvent _autoEvent = new AutoResetEvent(false);
 
-        private readonly Control _delegateToMainThread;
+        private readonly Control _delegateControl;
 
-        public WorkerMessageThread()
+        public WorkerMessageThread(Control delegateCOntrol)
         {
             //для делегейта в родительский поток
-            _delegateToMainThread = new Control();
-            _delegateToMainThread.CreateControl();
+            _delegateControl = delegateCOntrol;
 
             CreateWorkerThread();
         }
@@ -53,11 +52,22 @@ namespace ProgramMain.Framework.WorkerThread
             get { return _workerEventList.Count; }
         }
 
-        protected void FireEventToMainThread<T>(MainThreadEventArgs.DelegateToMainThread<T> queueEvent, T eventParams) where T : MainThreadEventArgs
+        public class OwnerEventArgs
+        {
+            // Summary:
+            //     Represents an event with no event data.
+            public static readonly OwnerEventArgs Empty = new OwnerEventArgs();
+        }
+
+        public delegate void OwnerEventHandler<in T>(object sender, T e) where T : OwnerEventArgs;
+
+        protected delegate void OwnerEventDelegate<in T>(T eventParams) where T : OwnerEventArgs;
+
+        protected void FireOwnerEvent<T>(OwnerEventDelegate<T> ownerEvent, T eventParams) where T : OwnerEventArgs
         {
             if (Terminating) return;
             //синхронный вызов из рабочего потока в поток приложения
-            _delegateToMainThread.Invoke(queueEvent, new object[] { eventParams });
+            _delegateControl.Invoke(ownerEvent, new Object[] { eventParams });
         }
 
         private void Terminate()
