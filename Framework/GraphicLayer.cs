@@ -69,9 +69,7 @@ namespace ProgramMain.Framework
 
         public PixelFormat PiFormat { get; private set; }
 
-        public GraphicLayer(int pWidth, int pHeight, Coordinate centerCoordinate, int pLevel, 
-            Control delegateControl, PixelFormat piFormat) :
-            base(delegateControl)
+        public GraphicLayer(int pWidth, int pHeight, Coordinate centerCoordinate, int pLevel, PixelFormat piFormat)
         {
             Width = pWidth;
             Height = pHeight;
@@ -85,7 +83,7 @@ namespace ProgramMain.Framework
             _drawLayerEvent += OnIvalidateLayer;
         }
 
-        public class InvalidateLayerEventArgs : OwnerEventArgs
+        public class InvalidateLayerEventArgs : MainThreadEventArgs
         {
             public InvalidateLayerEventArgs()
             {
@@ -100,9 +98,9 @@ namespace ProgramMain.Framework
             public readonly Rectangle ClipRectangle;
         }
 
-        public event OwnerEventHandler<InvalidateLayerEventArgs> DrawLayerBuffer;
+        public event MainThreadEventArgs.MainThreadEventHandler<InvalidateLayerEventArgs> DrawLayerBuffer;
 
-        private readonly OwnerEventDelegate<InvalidateLayerEventArgs> _drawLayerEvent;
+        private readonly MainThreadEventArgs.DelegateToMainThread<InvalidateLayerEventArgs> _drawLayerEvent;
 
         private void OnIvalidateLayer(InvalidateLayerEventArgs eventArgs)
         {
@@ -114,7 +112,7 @@ namespace ProgramMain.Framework
 
         protected void FireIvalidateLayer(Rectangle clipRectangle)
         {
-            FireOwnerEvent(_drawLayerEvent, new InvalidateLayerEventArgs(clipRectangle));
+            FireEventToMainThread(_drawLayerEvent, new InvalidateLayerEventArgs(clipRectangle));
         }
 
         protected override bool DispatchThreadEvents(WorkerEvent workerEvent)
