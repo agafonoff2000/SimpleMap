@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ProgramMain.ExampleDb;
 using ProgramMain.Framework;
-using ProgramMain.Framework.WorkerThread;
+using ProgramMain.Framework.WorkerThread.Types;
 using ProgramMain.Layers;
 using ProgramMain.Map;
 using ProgramMain.Map.Google;
@@ -199,7 +199,7 @@ namespace ProgramMain.ExampleForms.Controls
         private void Layer_DrawBufferChanged(object sender, GraphicLayer.InvalidateLayerEventArgs e)
         {
             if (_mapLayer.Terminating) return;
-            if (e == WorkerMessageThread.QueueEventArgs.Empty)
+            if (e == MainThreadEventArgs.Empty)
                 Invalidate();
 
             else
