@@ -124,6 +124,7 @@
     <Compile Include="Framework\GraphicLayer.cs" />
     <Compile Include="Framework\WorkerThread\Types\EventPriorityType.cs" />
     <Compile Include="Framework\WorkerThread\Types\EventPriorityTypeConverter.cs" />
+    <Compile Include="Framework\WorkerThread\Types\MainThreadEventArgs.cs" />
     <Compile Include="Framework\WorkerThread\Types\WorkerEventType.cs" />
     <Compile Include="Framework\WorkerThread\WorkerEvent.cs" />
     <Compile Include="Framework\WorkerThread\WorkerMessageThread.cs" />

@@ -81,8 +81,8 @@ namespace ProgramMain.ExampleForms.Controls
 
             var coordinate = Settings.CenterMapBound;
 
-            _mapLayer = new MapLayer(Width, Height, coordinate, Settings.Default.StartZoomLevel, this, piFormat);
-            _netLayer = new NetLayer(Width, Height, coordinate, Settings.Default.StartZoomLevel, this, piFormat);
+            _mapLayer = new MapLayer(Width, Height, coordinate, Settings.Default.StartZoomLevel, piFormat);
+            _netLayer = new NetLayer(Width, Height, coordinate, Settings.Default.StartZoomLevel, piFormat);
             _mapLayer.DrawLayerBuffer += Layer_DrawBufferChanged;
             _netLayer.DrawLayerBuffer += Layer_DrawBufferChanged;
 
@@ -199,7 +199,7 @@ namespace ProgramMain.ExampleForms.Controls
         private void Layer_DrawBufferChanged(object sender, GraphicLayer.InvalidateLayerEventArgs e)
         {
             if (_mapLayer.Terminating) return;
-            if (e == WorkerMessageThread.OwnerEventArgs.Empty)
+            if (e == WorkerMessageThread.QueueEventArgs.Empty)
                 Invalidate();
 
             else
