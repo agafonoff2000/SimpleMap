@@ -198,41 +198,49 @@ namespace ProgramMain.ExampleForms
 
             var rectBound = new CoordinateRectangle(leftBound, rightBound);
 
-            var mapWidth = Convert.ToInt32((new GoogleCoordinate(rectBound.RightTop, _mapLevel)).X - (new GoogleCoordinate(rectBound.LeftTop, _mapLevel)).X) + 2 * GoogleBlock.BlockSize;
-            var mapHeight = Convert.ToInt32((new GoogleCoordinate(rectBound.LeftBottom, _mapLevel)).Y - (new GoogleCoordinate(rectBound.LeftTop, _mapLevel)).Y) + 2 * GoogleBlock.BlockSize;
-
-            var image = GraphicLayer.CreateCompatibleBitmap(null, mapWidth, mapHeight, _mapPiFormat);
-            var graphics = Graphics.FromImage(image);
-
-            var viewBound = rectBound.LineMiddlePoint.GetScreenViewFromCenter(mapWidth, mapHeight, _mapLevel);
-            var blockView = viewBound.BlockView;
-            var mapBlockCount = (blockView.Right - blockView.Left + 1) * (blockView.Bottom - blockView.Top + 1);
-            var mapBlockNumber = 0;
-            
-            BeginInvoke(ProgressEvent, new Object[] {mapBlockNumber * 100 / mapBlockCount, mapBlockNumber, mapBlockCount});
-
-            for (var x = blockView.Left; x <= blockView.Right; x++)
+            try
             {
-                for (var y = blockView.Top; y <= blockView.Bottom; y++)
+                var mapWidth = Convert.ToInt32((new GoogleCoordinate(rectBound.RightTop, _mapLevel)).X - (new GoogleCoordinate(rectBound.LeftTop, _mapLevel)).X) + 2 * GoogleBlock.BlockSize;
+                var mapHeight = Convert.ToInt32((new GoogleCoordinate(rectBound.LeftBottom, _mapLevel)).Y - (new GoogleCoordinate(rectBound.LeftTop, _mapLevel)).Y) + 2 * GoogleBlock.BlockSize;
+
+                var image = GraphicLayer.CreateCompatibleBitmap(null, mapWidth, mapHeight, _mapPiFormat);
+                var graphics = Graphics.FromImage(image);
+
+                var viewBound = rectBound.LineMiddlePoint.GetScreenViewFromCenter(mapWidth, mapHeight, _mapLevel);
+                var blockView = viewBound.BlockView;
+                var mapBlockCount = (blockView.Right - blockView.Left + 1) * (blockView.Bottom - blockView.Top + 1);
+                var mapBlockNumber = 0;
+            
+                BeginInvoke(ProgressEvent, new Object[] {mapBlockNumber * 100 / mapBlockCount, mapBlockNumber, mapBlockCount});
+
+                for (var x = blockView.Left; x <= blockView.Right; x++)
                 {
-                    var block = new GoogleBlock(x, y, _mapLevel);
-                    var bmp = GraphicLayer.CreateCompatibleBitmap(
-                        MapLayer.DownloadImageFromFile(block) ?? MapLayer.DownloadImageFromGoogle(block, true),
-                        GoogleBlock.BlockSize, GoogleBlock.BlockSize, _mapPiFormat);
+                    for (var y = blockView.Top; y <= blockView.Bottom; y++)
+                    {
+                        var block = new GoogleBlock(x, y, _mapLevel);
+                        var bmp = GraphicLayer.CreateCompatibleBitmap(
+                            MapLayer.DownloadImageFromFile(block) ?? MapLayer.DownloadImageFromGoogle(block, true),
+                            GoogleBlock.BlockSize, GoogleBlock.BlockSize, _mapPiFormat);
 
-                    var rect = ((GoogleRectangle) block).GetScreenRect(viewBound);
-                    graphics.DrawImageUnscaled(bmp, rect.Location.X, rect.Location.Y);
+                        var rect = ((GoogleRectangle) block).GetScreenRect(viewBound);
+                        graphics.DrawImageUnscaled(bmp, rect.Location.X, rect.Location.Y);
 
-                    mapBlockNumber++;
+                        mapBlockNumber++;
 
-                    BeginInvoke(ProgressEvent, new Object[]{mapBlockNumber * 100 / mapBlockCount, mapBlockNumber, mapBlockCount});
+                        BeginInvoke(ProgressEvent, new Object[]{mapBlockNumber * 100 / mapBlockCount, mapBlockNumber, mapBlockCount});
 
-                    if (ct.IsCancellationRequested)
-                        return;
+                        if (ct.IsCancellationRequested)
+                            return;
+                    }
                 }
-            }
 
-            BeginInvoke(SaveMapEvent, new Object[] {image});
+                BeginInvoke(SaveMapEvent, new Object[] {image});
+            }
+            catch (Exception e)
+            {
+                BeginInvoke(ProgressEvent, new Object[] { 101, 0, 0 });
+                MessageBox.Show(e.Message, @"Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
