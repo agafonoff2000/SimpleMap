@@ -78,12 +78,10 @@ namespace ProgramMain.ExampleForms.Controls
         {
             InitializeComponent();
 
-            var piFormat = GraphicLayer.ObtainCompatiblePixelFormat(this);
+            var center = Settings.CenterMapBound;
 
-            var coordinate = Settings.CenterMapBound;
-
-            _mapLayer = new MapLayer(Width, Height, coordinate, Settings.Default.StartZoomLevel, piFormat);
-            _netLayer = new NetLayer(Width, Height, coordinate, Settings.Default.StartZoomLevel, piFormat);
+            _mapLayer = new MapLayer(Width, Height, center, Settings.Default.StartZoomLevel);
+            _netLayer = new NetLayer(Width, Height, center, Settings.Default.StartZoomLevel);
             _mapLayer.DrawLayerBuffer += Layer_DrawBufferChanged;
             _netLayer.DrawLayerBuffer += Layer_DrawBufferChanged;
 

@@ -69,7 +69,7 @@ namespace ProgramMain.Framework
 
         public PixelFormat PiFormat { get; private set; }
 
-        public GraphicLayer(int pWidth, int pHeight, Coordinate centerCoordinate, int pLevel, PixelFormat piFormat)
+        public GraphicLayer(int pWidth, int pHeight, Coordinate centerCoordinate, int pLevel)
         {
             Width = pWidth;
             Height = pHeight;
@@ -77,7 +77,7 @@ namespace ProgramMain.Framework
             _centerCoordinate = centerCoordinate;
             _level = pLevel;
 
-            PiFormat = piFormat;
+            PiFormat = ObtainCompatiblePixelFormat();
 
             Resize(false);
             _drawLayerEvent += OnIvalidateLayer;
@@ -143,9 +143,10 @@ namespace ProgramMain.Framework
             return false;
         }
 
-        public static PixelFormat ObtainCompatiblePixelFormat(Control control)
+        public static PixelFormat ObtainCompatiblePixelFormat()
         {
-            var screenContext = control.CreateGraphics();
+            var ctl = new Control();
+            var screenContext = ctl.CreateGraphics();
             var screenTestBmp = new Bitmap(1, 1, screenContext);
             return screenTestBmp.PixelFormat; //to obtain fast image draw into GDI context
         }

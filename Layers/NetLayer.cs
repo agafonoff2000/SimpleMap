@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing.Imaging;
 using System.Linq;
 using System.Drawing;
 using System.Threading;
@@ -76,8 +75,8 @@ namespace ProgramMain.Layers
 
         public double CoordinateTolerance { get; private set; }
 
-        public NetLayer(int width, int height, Coordinate centerCoordinate, int level, PixelFormat piFormat)
-            : base(width, height, centerCoordinate, level, piFormat)
+        public NetLayer(int width, int height, Coordinate centerCoordinate, int level)
+            : base(width, height, centerCoordinate, level)
         {
             CoordinateTolerance = 0;
 

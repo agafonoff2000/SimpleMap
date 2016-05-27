@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Net;
 using System.Drawing;
@@ -55,10 +54,10 @@ namespace ProgramMain.Layers
 
         private static readonly SortedDictionary<GoogleBlock, MapCacheItem> MapCache = new SortedDictionary<GoogleBlock, MapCacheItem>();
 
-        public MapLayer(int width, int height, Coordinate centerCoordinate, int level, PixelFormat piFormat)
-            : base(width, height, centerCoordinate, level, piFormat)
+        public MapLayer(int width, int height, Coordinate centerCoordinate, int level)
+            : base(width, height, centerCoordinate, level)
         {
-            _emptyBlock = CreateCompatibleBitmap(null, GoogleBlock.BlockSize, GoogleBlock.BlockSize, piFormat);
+            _emptyBlock = CreateCompatibleBitmap(null, GoogleBlock.BlockSize, GoogleBlock.BlockSize, PiFormat);
         }
 
         override protected void TranslateCoords()
