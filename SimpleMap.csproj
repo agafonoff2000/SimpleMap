@@ -121,6 +121,7 @@
       <DependentUpon>FrmMapDownloader.cs</DependentUpon>
     </Compile>
     <Compile Include="ExampleForms\Miscellaneous.cs" />
+    <Compile Include="Framework\ExternalHelpers.cs" />
     <Compile Include="Framework\GraphicLayer.cs" />
     <Compile Include="Framework\WorkerThread\Types\EventPriorityType.cs" />
     <Compile Include="Framework\WorkerThread\Types\EventPriorityTypeConverter.cs" />

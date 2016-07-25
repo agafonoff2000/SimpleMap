@@ -78,16 +78,16 @@ namespace ProgramMain.Layers
             {
                 SwapDrawBuffer();
 
-                var localBlockView = new Rectangle(_blockView.Location, _blockView.Size);
-                var localScreenView = (GoogleRectangle)ScreenView.Clone();
-                
-                while (DrawImages(localBlockView, localScreenView) == false)
+                Rectangle localBlockView;
+                GoogleRectangle localScreenView;
+                do
                 {
                     DropWorkerThreadEvents(WorkerEventType.RedrawLayer);
-                    
-                    localBlockView = new Rectangle(_blockView.Location, _blockView.Size);
-                    localScreenView = (GoogleRectangle)ScreenView.Clone();
-                }
+
+                    localBlockView = (Rectangle) _blockView.Clone();
+                    localScreenView = (GoogleRectangle) ScreenView.Clone();
+                } 
+                while (DrawImages(localBlockView, localScreenView) == false);
             }
             finally
             {
@@ -124,18 +124,11 @@ namespace ProgramMain.Layers
             return true;
         }
 
-        private static bool PointContains(Point pt, Rectangle rect)
-        {
-            //!!!standard function doesnt work on borders
-            return pt.X >= rect.Left && pt.X <= rect.Right
-                && pt.Y >= rect.Top && pt.Y <= rect.Bottom;
-        }
-
         private void DrawImage(GoogleBlock block)
         {
             if (Terminating) return;
 
-            if (block.Level == Level && PointContains(block.Pt, _blockView))
+            if (block.Level == Level && block.Pt.Contains(_blockView))
             {
                 var bmp = FindImage(block);
                 if (bmp != null)
